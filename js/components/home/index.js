@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Actions, ActionConst} from 'react-native-router-flux';
-import {Container, Header, Title, Content, Text, Button, Icon, Left, Body, Right} from 'native-base';
+import {Container, Header, Title, Content, Text, Button, Icon, Body, Right} from 'native-base';
 import {Grid, Row} from 'react-native-easy-grid';
 
 import * as drawerActions from '../../actions/drawer';
@@ -21,12 +20,6 @@ class Home extends Component {
     return (
       <Container style={styles.container}>
         <Header>
-          <Left>
-            <Button transparent onPress={() => Actions.signin({ type: ActionConst.RESET })}>
-              <Icon active name="power"/>
-            </Button>
-          </Left>
-
           <Body>
           <Title>{(this.props.name) ? this.props.name : 'Home'}</Title>
           </Body>

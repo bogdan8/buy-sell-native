@@ -1,8 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Container, Content, Item, Input, Button, Icon, View, Text, Header, Left, Body, Right, Title} from 'native-base';
-import {Actions} from 'react-native-router-flux';
+import {
+  Container,
+  Content,
+  Item,
+  Input,
+  Button,
+  Icon,
+  View,
+  Text,
+  Header,
+  Body,
+  Right,
+  Title,
+  Label
+} from 'native-base';
 
 import * as drawerActions from '../../actions/drawer';
 import * as listActions from '../../actions/list';
@@ -13,9 +26,9 @@ import styles from './styles';
 
 class SignIn extends Component {
   newPage(index) {
-    console.log('casdas');
     this.props.actions.setIndex(index);
   }
+
   constructor(props) {
     super(props);
 
@@ -24,6 +37,7 @@ class SignIn extends Component {
       password: ""
     }
   }
+
   onLoginPressed() {
     if (this.state.email != "" && this.state.password != "") {
       let credentials = {
@@ -37,15 +51,10 @@ class SignIn extends Component {
   }
 
   render() {
+    const {notification} = this.props;
     return (
       <Container style={styles.container}>
         <Header>
-          <Left>
-            <Button transparent onPress={() => Actions.signin({ type: ActionConst.RESET })}>
-              <Icon active name="power"/>
-            </Button>
-          </Left>
-
           <Body>
           <Title>{(this.props.name) ? this.props.name : 'Home'}</Title>
           </Body>
@@ -59,15 +68,20 @@ class SignIn extends Component {
 
         <Content>
           <View style={styles.bg}>
-            <Item style={styles.input}>
-              <Icon active name="person"/>
-              <Input placeholder="EMAIL" onChangeText={(text) => this.setState({email: text})}/>
+            <Item floatingLabel
+                  success={notification.level == 'success' ? true : false }
+                  error={notification.level == 'error' ? true : false }
+                  style={styles.input}>
+              <Label>Email</Label>
+              <Input onChangeText={(text) => this.setState({email: text})}/>
             </Item>
-            <Item style={styles.input}>
-              <Icon name="unlock"/>
+            <Item floatingLabel
+                  success={notification.level == 'success' ? true : false }
+                  error={notification.level == 'error' ? true : false }
+                  style={styles.input}>
+              <Label>Password</Label>
               <Input
                 onChangeText={(text) => this.setState({password: text})}
-                placeholder="PASSWORD"
                 secureTextEntry
               />
             </Item>

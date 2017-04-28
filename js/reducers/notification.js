@@ -1,19 +1,14 @@
-import type {Action} from '../actions/types';
-import {ADD_NOTIFICATION} from '../actions/notification';
+import {
+  ADD_NOTIFICATION
+} from '../actions/types';
 
-export type State = {
-  list: string
-}
-
-export default function (state: State = {}, action: Action): State {
+export default function notification(state = {}, action) {
   switch (action.type) {
     case ADD_NOTIFICATION:
       return Object.assign({}, state, {
         message: action.message,
-        level: action.level,
-        position: 'bc'
+        level: action.level
       });
-
     default:
       return state;
   }
