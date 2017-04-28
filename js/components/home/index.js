@@ -26,7 +26,7 @@ class Home extends Component {
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET })}>
+            <Button transparent onPress={() => Actions.signin({ type: ActionConst.RESET })}>
               <Icon active name="power"/>
             </Button>
           </Left>

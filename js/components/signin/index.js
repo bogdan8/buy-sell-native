@@ -7,7 +7,7 @@ import {setIndex} from '../../actions/list';
 import {openDrawer} from '../../actions/drawer';
 import styles from './styles';
 
-class Login extends Component {
+class SignIn extends Component {
   static propTypes = {
     name: React.PropTypes.string,
     setIndex: React.PropTypes.func,
@@ -28,7 +28,7 @@ class Login extends Component {
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={() => Actions.login({ type: ActionConst.RESET })}>
+            <Button transparent onPress={() => Actions.signin({ type: ActionConst.RESET })}>
               <Icon active name="power"/>
             </Button>
           </Left>
@@ -57,8 +57,8 @@ class Login extends Component {
                 secureTextEntry
               />
             </Item>
-            <Button style={styles.btn} onPress={() => Actions.home()}>
-              <Text>Login</Text>
+            <Button style={styles.btn} onPress={() => Actions.signin()}>
+              <Text>SignIn</Text>
             </Button>
           </View>
         </Content>
@@ -77,4 +77,4 @@ const mapStateToProps = state => ({
   name: 'Bobo',
 });
 
-export default connect(mapStateToProps, bindAction)(Login);
+export default connect(mapStateToProps, bindAction)(SignIn);

@@ -7,7 +7,7 @@ import { Router, Scene } from 'react-native-router-flux';
 
 import { closeDrawer } from './actions/drawer';
 
-import Login from './components/login/';
+import SignIn from './components/signin/';
 import Home from './components/home/';
 import SideBar from './components/sideBar';
 import { statusBarColor } from './themes/base-theme';
@@ -47,11 +47,11 @@ class AppNavigator extends Component {
   _renderScene(props) { // eslint-disable-line class-methods-use-this
     switch (props.scene.route.key) {
       case 'login':
-        return <Login />;
+        return <SignIn />;
       case 'home':
         return <Home />;
       default :
-        return <Login />;
+        return <SignIn />;
     }
   }
 
@@ -90,7 +90,7 @@ class AppNavigator extends Component {
         />
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="login" component={Login} />
+            <Scene key="signin" component={SignIn} />
             <Scene key="home" component={Home} hideNavBar initial />
           </Scene>
         </RouterWithRedux>
