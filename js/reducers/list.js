@@ -1,21 +1,18 @@
-import type {Action} from '../actions/types';
-import {SET_INDEX} from '../actions/list';
-
-export type State = {
-  list: string
-}
+import {SET_INDEX} from '../actions/types';
 
 const initialState = {
   list: [],
   selectedIndex: undefined,
 };
 
-export default function (state: State = initialState, action: Action): State {
-  if (action.type === SET_INDEX) {
-    return {
-      ...state,
-      selectedIndex: action.payload,
-    };
+export default function list(state = initialState, action) {
+  switch (action.type) {
+    case SET_INDEX:
+      return {
+        ...state,
+        selectedIndex: action.payload,
+      };
+    default:
+      return state;
   }
-  return state;
 }

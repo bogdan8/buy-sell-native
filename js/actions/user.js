@@ -1,7 +1,5 @@
-import type {Action} from './types';
+import * as types from './types';
 import userApi from '../api/UserApi';
-
-export const GET_ALL_USERS = 'GET_ALL_USERS';
 
 export function message(message, level) {
   return {
@@ -12,11 +10,11 @@ export function message(message, level) {
 }
 
 /* Get all users */
-export function allUsers(jwt): Action {
+export function allUsers(jwt) {
   return function (dispatch) {
     return userApi.getAllUsers(jwt).then(response => {
       dispatch({
-        type: GET_ALL_USERS,
+        type: types.GET_ALL_USERS,
         users: response.body
       });
     }).catch(error => {
@@ -27,7 +25,7 @@ export function allUsers(jwt): Action {
 
 
 /* Registration user */
-export function addUser(paramsUser): Action {
+export function addUser(paramsUser) {
   return (dispatch) => {
     return userApi.createUser(paramsUser).then(response => {
       dispatch(message(response.message.text, response.message.type));

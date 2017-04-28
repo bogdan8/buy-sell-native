@@ -1,16 +1,16 @@
+import React, {Component} from 'react';
+import {StatusBar} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {Drawer} from 'native-base';
+import {Router, Scene} from 'react-native-router-flux';
 
-import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
-import { connect } from 'react-redux';
-import { Drawer } from 'native-base';
-import { Router, Scene } from 'react-native-router-flux';
-
-import { closeDrawer } from './actions/drawer';
+import * as drawerActions from './actions/drawer';
 
 import SignIn from './components/signin/';
 import Home from './components/home/';
 import SideBar from './components/sideBar';
-import { statusBarColor } from './themes/base-theme';
+import {statusBarColor} from './themes/base-theme';
 
 
 const RouterWithRedux = connect()(Router);
@@ -20,7 +20,7 @@ class AppNavigator extends Component {
   static propTypes = {
     drawerState: React.PropTypes.string,
     closeDrawer: React.PropTypes.func,
-  }
+  };
 
 
   componentDidUpdate() {
@@ -40,7 +40,7 @@ class AppNavigator extends Component {
 
   closeDrawer() {
     if (this.props.drawerState === 'opened') {
-      this.props.closeDrawer();
+      this.props.actions.closeDrawer();
     }
   }
 
@@ -90,8 +90,8 @@ class AppNavigator extends Component {
         />
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="signin" component={SignIn} />
-            <Scene key="home" component={Home} hideNavBar initial />
+            <Scene key="signin" component={SignIn}/>
+            <Scene key="home" component={Home} hideNavBar initial/>
           </Scene>
         </RouterWithRedux>
       </Drawer>
@@ -99,15 +99,14 @@ class AppNavigator extends Component {
   }
 }
 
-function bindAction(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    closeDrawer: () => dispatch(closeDrawer()),
+    actions: bindActionCreators(drawerActions, dispatch)
   };
 }
 
 const mapStateToProps = state => ({
-  drawerState: state.drawer.drawerState,
-  navigation: state.cardNavigation,
+  drawerState: state.drawer.drawerState
 });
 
-export default connect(mapStateToProps, bindAction)(AppNavigator);
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator);

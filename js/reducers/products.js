@@ -1,11 +1,8 @@
-import type {Action} from '../actions/types';
-import {GET_ALL_PRODUCTS} from '../actions/product';
+import {
+  GET_ALL_PRODUCTS
+} from '../actions/types';
 
-export type State = {
-  list: string
-}
-
-export default function (state: State = [], action: Action): State {
+export default function products(state = [], action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.products;

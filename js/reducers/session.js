@@ -1,15 +1,10 @@
-import type {Action} from '../actions/types';
-import {LOG_IN_SUCCESS, LOG_OUT} from '../actions/session';
+import * as types from '../actions/types';
 
-export type State = {
-  list: string
-}
-
-export default function (state: State = [], action: Action): State {
+export default function sessionReducer(state = [], action) {
   switch (action.type) {
-    case LOG_IN_SUCCESS:
+    case types.LOG_IN_SUCCESS:
       return action.session;
-    case LOG_OUT:
+    case types.LOG_OUT:
       return action.session;
     default:
       return state;

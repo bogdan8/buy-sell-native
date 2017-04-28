@@ -12,7 +12,7 @@ export default function navigateTo(route, homeRoute) {
     const navigation = getState().cardNavigation;
     const currentRouteKey = navigation.routes[navigation.routes.length - 1].key;
 
-    dispatch(closeDrawer());
+    closeDrawer();
 
     if (currentRouteKey !== homeRoute && route !== homeRoute) {
       dispatch(replaceAt(currentRouteKey, {key: route, index: 1}, navigation.key));

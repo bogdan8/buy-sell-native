@@ -1,24 +1,20 @@
 import React, {Component} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {Actions, ActionConst} from 'react-native-router-flux';
 import {Container, Header, Title, Content, Text, Button, Icon, Left, Body, Right} from 'native-base';
 import {Grid, Row} from 'react-native-easy-grid';
 
-import {setIndex} from '../../actions/list';
-import {openDrawer} from '../../actions/drawer';
+import * as drawerActions from '../../actions/drawer';
+import * as listActions from '../../actions/list';
+
 import styles from './styles';
 
 class Home extends Component {
 
-  static propTypes = {
-    name: React.PropTypes.string,
-    setIndex: React.PropTypes.func,
-    openDrawer: React.PropTypes.func,
-  }
-
   newPage(index) {
-    this.props.setIndex(index);
+    this.props.actions.setIndex(index);
   }
 
   render() {
@@ -36,7 +32,7 @@ class Home extends Component {
           </Body>
 
           <Right>
-            <Button transparent onPress={this.props.openDrawer}>
+            <Button transparent onPress={this.props.actions.openDrawer}>
               <Icon active name="menu"/>
             </Button>
           </Right>
@@ -51,15 +47,13 @@ class Home extends Component {
   }
 }
 
-function bindAction(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    setIndex: index => dispatch(setIndex(index)),
-    openDrawer: () => dispatch(openDrawer()),
+    actions: bindActionCreators({...drawerActions, listActions}, dispatch)
   };
 }
-
 const mapStateToProps = state => ({
   name: 'Bobo',
 });
 
-export default connect(mapStateToProps, bindAction)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

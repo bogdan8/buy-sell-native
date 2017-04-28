@@ -1,11 +1,6 @@
-import type {Action} from '../actions/types';
-import {GET_ALL_USERS} from '../actions/user';
+import {GET_ALL_USERS} from '../actions/types';
 
-export type State = {
-  list: string
-}
-
-export default function (state: State = [], action: Action): State {
+export default function users(state = [], action) {
   switch (action.type) {
     case GET_ALL_USERS:
       return action.users;
