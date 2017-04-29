@@ -22,10 +22,10 @@ class SideBar extends Component {
           <Text>Реєстрація</Text>
         </ListItem>
       </View>
-    }else{
+    } else {
       return <ListItem button onPress={() => { this.props.actions.signOutUser(); this.props.actions.closeDrawer(); }}>
-          <Text>Вихід</Text>
-        </ListItem>
+        <Text>Вихід</Text>
+      </ListItem>
     }
   }
 

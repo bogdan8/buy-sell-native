@@ -1,4 +1,4 @@
-package com.nativestarterkit;
+package com.fshop;
 
 import android.app.Application;
 

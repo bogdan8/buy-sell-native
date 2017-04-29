@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {ScrollView} from 'react-native';
 import {
   Container,
   Content,
@@ -26,7 +25,7 @@ import * as userActions from '../../actions/user';
 import styles from './styles';
 
 class Registration extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -42,9 +41,9 @@ class Registration extends Component {
   }
 
   onRegisterPressed() {
-    if(this.state.email == "" && this.state.username == "" && this.state.password == ""  && this.state.telephone == "" ){
+    if (this.state.email == "" && this.state.username == "" && this.state.password == "" && this.state.telephone == "") {
       showToast('Ви незаповнели обов\'язкові поля');
-    }else{
+    } else {
       if (this.state.password != this.state.repeat_password) {
         showToast('Паролі незбігаються');
       } else {
@@ -93,52 +92,50 @@ class Registration extends Component {
         </Header>
 
         <Content>
-          <ScrollView>
-            <View style={styles.bg}>
-              <Item floatingLabel
-                    error={this.state.username == "" ? true : false }
-                    style={styles.input}>
-                <Label>{"Ім'я*"}</Label>
-                <Input onChangeText={(val) => this.setState({username: val})}/>
-              </Item>
-              <Item floatingLabel
-                    error={this.state.email == "" ? true : false }
-                    style={styles.input}>
-                <Label>Електрона пошта*</Label>
-                <Input onChangeText={(val) => this.setState({email: val})}/>
-              </Item>
-              <Item floatingLabel
-                    error={this.state.telephone == "" ? true : false }
-                    style={styles.input}>
-                <Label>Телефон*</Label>
-                <Input onChangeText={(val) => this.setState({telephone: val})}/>
-              </Item>
-              <Item floatingLabel
-                    style={styles.input}>
-                <Label>Місце знаходження</Label>
-                <Input onChangeText={(val) => this.setState({location: val})}/>
-              </Item>
-              <Item floatingLabel
-                    error={this.state.password == "" ? true : false }
-                    style={styles.input}>
-                <Label>Пароль*</Label>
-                <Input
-                  onChangeText={(val) => this.setState({password: val})}
-                  secureTextEntry
-                  />
-              </Item>
-              <Item floatingLabel
-                    error={this.state.repeat_password == "" ? true : false }
-                    style={styles.input}>
-                <Label>Повторіть пароль*</Label>
-                <Input 
-                  onChangeText={(val) => this.setState({repeat_password: val})}
-                  secureTextEntry
-                 />
-              </Item>
-              {this.isLoading()}
-            </View>
-          </ScrollView>
+          <View style={styles.bg}>
+            <Item floatingLabel
+                  error={this.state.username == "" ? true : false }
+                  style={styles.input}>
+              <Label>{"Ім'я*"}</Label>
+              <Input onChangeText={(val) => this.setState({username: val})}/>
+            </Item>
+            <Item floatingLabel
+                  error={this.state.email == "" ? true : false }
+                  style={styles.input}>
+              <Label>Електрона пошта*</Label>
+              <Input onChangeText={(val) => this.setState({email: val})}/>
+            </Item>
+            <Item floatingLabel
+                  error={this.state.telephone == "" ? true : false }
+                  style={styles.input}>
+              <Label>Телефон*</Label>
+              <Input onChangeText={(val) => this.setState({telephone: val})}/>
+            </Item>
+            <Item floatingLabel
+                  style={styles.input}>
+              <Label>Місце знаходження</Label>
+              <Input onChangeText={(val) => this.setState({location: val})}/>
+            </Item>
+            <Item floatingLabel
+                  error={this.state.password == "" ? true : false }
+                  style={styles.input}>
+              <Label>Пароль*</Label>
+              <Input
+                onChangeText={(val) => this.setState({password: val})}
+                secureTextEntry
+              />
+            </Item>
+            <Item floatingLabel
+                  error={this.state.repeat_password == "" ? true : false }
+                  style={styles.input}>
+              <Label>Повторіть пароль*</Label>
+              <Input
+                onChangeText={(val) => this.setState({repeat_password: val})}
+                secureTextEntry
+              />
+            </Item>
+            {this.isLoading()}
+          </View>
         </Content>
       </Container>
     );

@@ -25,7 +25,7 @@ export function logInUser(credentials) {
   };
 }
 
-export function signOutUser(){
+export function signOutUser() {
   return function (dispatch) {
     dispatch({
       type: types.LOG_OUT,

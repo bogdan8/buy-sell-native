@@ -10,7 +10,6 @@ class UserApi {
       }
     });
     return response = JSON.parse(await response.text())
-
   }
 
   /* Create user */

@@ -25,7 +25,7 @@ import * as sessionActions from '../../actions/session';
 import styles from './styles';
 
 class SignIn extends Component {
-  
+
   constructor(props) {
     super(props);
 

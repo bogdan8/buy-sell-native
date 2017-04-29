@@ -13,7 +13,6 @@ import Home from './components/home/';
 import SideBar from './components/sideBar';
 import {statusBarColor} from './themes/base-theme';
 
-
 const RouterWithRedux = connect()(Router);
 
 class AppNavigator extends Component {

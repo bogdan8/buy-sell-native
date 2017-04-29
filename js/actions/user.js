@@ -17,7 +17,6 @@ export function allUsers(jwt) {
   };
 }
 
-
 /* Registration user */
 export function addUser(paramsUser) {
   return (dispatch) => {

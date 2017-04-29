@@ -1,7 +1,6 @@
-
 const React = require('react-native');
 
-const { StyleSheet } = React;
+const {StyleSheet} = React;
 
 export default {
   sidebar: {
