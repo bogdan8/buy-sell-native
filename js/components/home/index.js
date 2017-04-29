@@ -6,15 +6,10 @@ import {Container, Header, Title, Content, Text, Button, Icon, Body, Right} from
 import {Grid, Row} from 'react-native-easy-grid';
 
 import * as drawerActions from '../../actions/drawer';
-import * as listActions from '../../actions/list';
 
 import styles from './styles';
 
 class Home extends Component {
-
-  newPage(index) {
-    this.props.actions.setIndex(index);
-  }
 
   render() {
     return (
@@ -42,7 +37,7 @@ class Home extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, listActions}, dispatch)
+    actions: bindActionCreators(drawerActions, dispatch)
   };
 }
 const mapStateToProps = state => ({

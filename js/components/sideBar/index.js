@@ -5,24 +5,22 @@ import {Content, Text, ListItem} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 
 import * as drawerActions from '../../actions/drawer';
-import * as listActions from '../../actions/list';
 
 import styles from './style';
 
 class SideBar extends Component {
 
-  navigateTo(route) {
-    this.props.actions.navigateTo(route, 'home');
-  }
-
   render() {
     return (
       <Content style={styles.sidebar}>
         <ListItem button onPress={() => { Actions.home(); this.props.actions.closeDrawer(); }}>
-          <Text>Home</Text>
+          <Text>Головна</Text>
         </ListItem>
         <ListItem button onPress={() => { Actions.signin(); this.props.actions.closeDrawer(); }}>
-          <Text>SignIn</Text>
+          <Text>Вхід</Text>
+        </ListItem>
+        <ListItem button onPress={() => { Actions.registration(); this.props.actions.closeDrawer(); }}>
+          <Text>Реєстрація</Text>
         </ListItem>
       </Content>
     );
@@ -31,7 +29,7 @@ class SideBar extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, ...listActions}, dispatch)
+    actions: bindActionCreators(drawerActions, dispatch)
   };
 }
 

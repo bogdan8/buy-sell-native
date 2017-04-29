@@ -23,7 +23,6 @@ export function logInUser(credentials) {
             jwt: response.jwt
           }
         });
-        Actions.home();
         dispatch(message('Ви ввійшли', 'success'))
       }
     }).catch(error => {

@@ -14,27 +14,25 @@ import {
   Body,
   Right,
   Title,
-  Label
+  Label,
+  Spinner
 } from 'native-base';
 
 import * as drawerActions from '../../actions/drawer';
-import * as listActions from '../../actions/list';
 import * as sessionActions from '../../actions/session';
 import * as notificationActions from '../../actions/notification';
 
 import styles from './styles';
 
 class SignIn extends Component {
-  newPage(index) {
-    this.props.actions.setIndex(index);
-  }
-
+  
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      loading: false,
     }
   }
 
@@ -44,9 +42,26 @@ class SignIn extends Component {
         email: this.state.email,
         password: this.state.password
       };
-      this.props.actions.logInUser(credentials);
+      this.setState({
+        loading: true
+      });
+      this.props.actions.logInUser(credentials).then(() => {
+        this.setState({
+          loading: false
+        })
+      });
     } else {
       this.props.actions.addNotification('Ви нічого неввели', 'error')
+    }
+  }
+
+  isLoading() {
+    if (!this.state.loading) {
+      return <Button style={styles.btn} onPress={this.onLoginPressed.bind(this)}>
+        <Text>Ввійти</Text>
+      </Button>
+    } else {
+      return <Spinner color='blue'/>
     }
   }
 
@@ -79,7 +94,7 @@ class SignIn extends Component {
                   success={notification.level == 'success' ? true : false }
                   error={notification.level == 'error' ? true : false }
                   style={styles.input}>
-              <Label>Password</Label>
+              <Label>Пароль</Label>
               <Input
                 onChangeText={(text) => this.setState({password: text})}
                 secureTextEntry
@@ -88,9 +103,7 @@ class SignIn extends Component {
             <Text>
               {this.props.notification.message ? this.props.notification.message : '' }
             </Text>
-            <Button style={styles.btn} onPress={this.onLoginPressed.bind(this)}>
-              <Text>SignIn</Text>
-            </Button>
+            {this.isLoading()}
           </View>
         </Content>
       </Container>
@@ -105,7 +118,7 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, ...listActions, ...sessionActions, ...notificationActions}, dispatch)
+    actions: bindActionCreators({...drawerActions, ...sessionActions, ...notificationActions}, dispatch)
   };
 }
 

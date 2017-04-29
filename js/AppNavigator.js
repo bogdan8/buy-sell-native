@@ -8,6 +8,7 @@ import {Router, Scene} from 'react-native-router-flux';
 import * as drawerActions from './actions/drawer';
 
 import SignIn from './components/signin/';
+import Registration from './components/registration/';
 import Home from './components/home/';
 import SideBar from './components/sideBar';
 import {statusBarColor} from './themes/base-theme';
@@ -41,17 +42,6 @@ class AppNavigator extends Component {
   closeDrawer() {
     if (this.props.drawerState === 'opened') {
       this.props.actions.closeDrawer();
-    }
-  }
-
-  _renderScene(props) { // eslint-disable-line class-methods-use-this
-    switch (props.scene.route.key) {
-      case 'login':
-        return <SignIn />;
-      case 'home':
-        return <Home />;
-      default :
-        return <SignIn />;
     }
   }
 
@@ -91,6 +81,7 @@ class AppNavigator extends Component {
         <RouterWithRedux>
           <Scene key="root">
             <Scene key="signin" component={SignIn}/>
+            <Scene key="registration" component={Registration}/>
             <Scene key="home" component={Home} hideNavBar initial/>
           </Scene>
         </RouterWithRedux>
