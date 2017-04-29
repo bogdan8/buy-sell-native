@@ -1,3 +1,4 @@
+import {Actions} from 'react-native-router-flux';
 import * as types from './types';
 import userApi from '../api/UserApi';
 
@@ -28,6 +29,7 @@ export function allUsers(jwt) {
 export function addUser(paramsUser) {
   return (dispatch) => {
     return userApi.createUser(paramsUser).then(response => {
+      Actions.signin();
       dispatch(message(response.message.text, response.message.type));
     }).catch(error => {
       throw(error);

@@ -20,7 +20,7 @@ import {
 } from 'native-base';
 
 import * as drawerActions from '../../actions/drawer';
-import * as sessionActions from '../../actions/session';
+import * as userActions from '../../actions/user';
 import * as notificationActions from '../../actions/notification';
 
 import styles from './styles';
@@ -156,7 +156,7 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, ...sessionActions, ...notificationActions}, dispatch)
+    actions: bindActionCreators({...drawerActions, ...userActions, ...notificationActions}, dispatch)
   };
 }
 

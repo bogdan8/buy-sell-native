@@ -4,6 +4,11 @@ export function openDrawer() {
   return function (dispatch) {
     dispatch({
       type: types.OPEN_DRAWER,
+    });
+    dispatch({
+      type: types.ADD_NOTIFICATION,
+      message: '',
+      level: ''
     })
   };
 }

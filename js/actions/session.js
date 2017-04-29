@@ -23,7 +23,8 @@ export function logInUser(credentials) {
             jwt: response.jwt
           }
         });
-        dispatch(message('Ви ввійшли', 'success'))
+        Actions.home();
+        dispatch(message('Ви ввійшли', 'success'));
       }
     }).catch(error => {
       throw(error);
@@ -40,6 +41,7 @@ export function signOutUser(){
         jwt: ''
       }
     });
+    Actions.home();
     dispatch(message('Ви вийшли', 'success'))
   }
 }

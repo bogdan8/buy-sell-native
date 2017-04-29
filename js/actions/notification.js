@@ -1,9 +1,9 @@
-import {ADD_NOTIFICATION} from './types';
+import * as types from './types';
 
 export function addNotification(message, level) {
   return function (dispatch) {
     dispatch({
-      type: ADD_NOTIFICATION,
+      type: types.ADD_NOTIFICATION,
       message,
       level
     })
