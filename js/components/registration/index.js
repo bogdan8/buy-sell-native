@@ -16,9 +16,9 @@ import {
   Right,
   Title,
   Label,
-  Spinner,
-  Toast
+  Spinner
 } from 'native-base';
+import {showToast} from '../../helpers/helpers';
 
 import * as drawerActions from '../../actions/drawer';
 import * as userActions from '../../actions/user';
@@ -43,18 +43,10 @@ class Registration extends Component {
 
   onRegisterPressed() {
     if(this.state.email == "" && this.state.username == "" && this.state.password == ""  && this.state.telephone == "" ){
-      Toast.show({
-        text: 'Ви незаповнели обов\'язкові поля',
-        position: 'bottom',
-        buttonText: 'X'
-      });
+      showToast('Ви незаповнели обов\'язкові поля');
     }else{
       if (this.state.password != this.state.repeat_password) {
-        Toast.show({
-          text: 'Паролі незбігаються',
-          position: 'bottom',
-          buttonText: 'X'
-        });
+        showToast('Паролі незбігаються');
       } else {
         let paramsUser = {
           username: this.state.username,
@@ -86,7 +78,6 @@ class Registration extends Component {
   }
 
   render() {
-    const {notification} = this.props;
     return (
       <Container style={styles.container}>
         <Header>
@@ -155,8 +146,7 @@ class Registration extends Component {
 }
 
 const mapStateToProps = state => ({
-  name: 'Bobo',
-  notification: state.notification
+  name: 'Bobo'
 });
 
 function mapDispatchToProps(dispatch) {

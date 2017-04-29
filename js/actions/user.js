@@ -1,7 +1,7 @@
-import {Toast} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import * as types from './types';
 import userApi from '../api/UserApi';
+import {showToast} from '../helpers/helpers';
 
 /* Get all users */
 export function allUsers(jwt) {
@@ -23,11 +23,7 @@ export function addUser(paramsUser) {
   return (dispatch) => {
     return userApi.createUser(paramsUser).then(response => {
       Actions.signin();
-      Toast.show({
-        text: response.message.text,
-        position: 'bottom',
-        buttonText: 'X'
-      });
+      showToast(response.message.text);
     }).catch(error => {
       throw(error);
     });

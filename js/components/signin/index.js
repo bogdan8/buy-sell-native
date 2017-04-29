@@ -15,9 +15,9 @@ import {
   Right,
   Title,
   Label,
-  Spinner,
-  Toast
+  Spinner
 } from 'native-base';
+import {showToast} from '../../helpers/helpers';
 
 import * as drawerActions from '../../actions/drawer';
 import * as sessionActions from '../../actions/session';
@@ -51,11 +51,7 @@ class SignIn extends Component {
         })
       });
     } else {
-      Toast.show({
-        text: 'Ви нічого неввели',
-        position: 'bottom',
-        buttonText: 'X'
-      });
+      showToast('Ви нічого неввели');
     }
   }
 
@@ -70,7 +66,6 @@ class SignIn extends Component {
   }
 
   render() {
-    const {notification} = this.props;
     return (
       <Container style={styles.container}>
         <Header>
@@ -109,8 +104,7 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => ({
-  name: 'Bobo',
-  notification: state.notification
+  name: 'Bobo'
 });
 
 function mapDispatchToProps(dispatch) {
