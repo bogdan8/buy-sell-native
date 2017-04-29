@@ -1,14 +1,12 @@
 const React = require('react-native');
 
-const { StyleSheet } = React;
+const { StyleSheet, Dimensions } = React;
+
+const deviceWidth = Dimensions.get('window').width;
 
 export default {
   container: {
     backgroundColor: '#FBFAFA',
-  },
-  row: {
-    flex: 1,
-    alignItems: 'center',
   },
   text: {
     fontSize: 20,
@@ -18,4 +16,8 @@ export default {
   mt: {
     marginTop: 18,
   },
+  productImage: {
+    width: deviceWidth - 40,
+    height: 150
+  }
 };

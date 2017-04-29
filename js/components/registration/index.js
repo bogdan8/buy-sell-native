@@ -145,9 +145,11 @@ class Registration extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  name: 'Bobo'
-});
+function mapStateToProps(state) {
+  return {
+    name: 'Bobo'
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {
