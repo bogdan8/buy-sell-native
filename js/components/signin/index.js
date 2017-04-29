@@ -15,12 +15,12 @@ import {
   Right,
   Title,
   Label,
-  Spinner
+  Spinner,
+  Toast
 } from 'native-base';
 
 import * as drawerActions from '../../actions/drawer';
 import * as sessionActions from '../../actions/session';
-import * as notificationActions from '../../actions/notification';
 
 import styles from './styles';
 
@@ -51,7 +51,11 @@ class SignIn extends Component {
         })
       });
     } else {
-      this.props.actions.addNotification('Ви нічого неввели', 'error')
+      Toast.show({
+        text: 'Ви нічого неввели',
+        position: 'bottom',
+        buttonText: 'X'
+      });
     }
   }
 
@@ -84,15 +88,11 @@ class SignIn extends Component {
         <Content>
           <View style={styles.bg}>
             <Item floatingLabel
-                  success={notification.level == 'success' ? true : false }
-                  error={notification.level == 'error' ? true : false }
                   style={styles.input}>
               <Label>Email</Label>
               <Input onChangeText={(text) => this.setState({email: text})}/>
             </Item>
             <Item floatingLabel
-                  success={notification.level == 'success' ? true : false }
-                  error={notification.level == 'error' ? true : false }
                   style={styles.input}>
               <Label>Пароль</Label>
               <Input
@@ -100,9 +100,6 @@ class SignIn extends Component {
                 secureTextEntry
               />
             </Item>
-            <Text>
-              {this.props.notification.message ? this.props.notification.message : '' }
-            </Text>
             {this.isLoading()}
           </View>
         </Content>
@@ -118,7 +115,7 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, ...sessionActions, ...notificationActions}, dispatch)
+    actions: bindActionCreators({...drawerActions, ...sessionActions}, dispatch)
   };
 }
 

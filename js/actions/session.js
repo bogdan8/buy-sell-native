@@ -1,20 +1,17 @@
 import {Actions} from 'react-native-router-flux';
 import * as types from './types';
 import sessionApi from '../api/SessionApi';
-
-export function message(message, level) {
-  return {
-    type: types.ADD_NOTIFICATION,
-    message: message,
-    level: level
-  }
-}
+import {Toast} from 'native-base';
 
 export function logInUser(credentials) {
   return function (dispatch) {
     return sessionApi.login(credentials).then(response => {
       if (response.status == '404') {
-        dispatch(message('Невірні данні', 'error'));
+        Toast.show({
+          text: 'Невірні данні',
+          position: 'bottom',
+          buttonText: 'X'
+        });
       } else {
         dispatch({
           type: types.LOG_IN_SUCCESS,
@@ -24,7 +21,11 @@ export function logInUser(credentials) {
           }
         });
         Actions.home();
-        dispatch(message('Ви ввійшли', 'success'));
+        Toast.show({
+          text: 'Ви ввійшли',
+          position: 'bottom',
+          buttonText: 'X'
+        });
       }
     }).catch(error => {
       throw(error);
@@ -42,6 +43,10 @@ export function signOutUser(){
       }
     });
     Actions.home();
-    dispatch(message('Ви вийшли', 'success'))
+    Toast.show({
+      text: 'Ви вийшли',
+      position: 'bottom',
+      buttonText: 'X'
+    });
   }
 }

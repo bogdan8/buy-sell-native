@@ -16,12 +16,12 @@ import {
   Right,
   Title,
   Label,
-  Spinner
+  Spinner,
+  Toast
 } from 'native-base';
 
 import * as drawerActions from '../../actions/drawer';
 import * as userActions from '../../actions/user';
-import * as notificationActions from '../../actions/notification';
 
 import styles from './styles';
 
@@ -43,10 +43,18 @@ class Registration extends Component {
 
   onRegisterPressed() {
     if(this.state.email == "" && this.state.username == "" && this.state.password == ""  && this.state.telephone == "" ){
-      this.props.actions.addNotification('Ви незаповнели обов\'язкові поля', 'error');
+      Toast.show({
+        text: 'Ви незаповнели обов\'язкові поля',
+        position: 'bottom',
+        buttonText: 'X'
+      });
     }else{
       if (this.state.password != this.state.repeat_password) {
-        this.props.actions.addNotification('Паролі незбігаються', 'error');
+        Toast.show({
+          text: 'Паролі незбігаються',
+          position: 'bottom',
+          buttonText: 'X'
+        });
       } else {
         let paramsUser = {
           username: this.state.username,
@@ -137,9 +145,6 @@ class Registration extends Component {
                   secureTextEntry
                  />
               </Item>
-              <Text>
-                {this.props.notification.message ? this.props.notification.message : '' }
-              </Text>
               {this.isLoading()}
             </View>
           </ScrollView>
@@ -156,7 +161,7 @@ const mapStateToProps = state => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, ...userActions, ...notificationActions}, dispatch)
+    actions: bindActionCreators({...drawerActions, ...userActions}, dispatch)
   };
 }
 
