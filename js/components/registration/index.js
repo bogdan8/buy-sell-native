@@ -15,9 +15,12 @@ import {
   Right,
   Title,
   Label,
-  Spinner
+  Spinner,
+  
 } from 'native-base';
+import {TouchableOpacity, Image} from 'react-native';
 import {showToast} from '../../helpers/helpers';
+import ImagePicker from 'react-native-image-picker';
 
 import * as drawerActions from '../../actions/drawer';
 import * as userActions from '../../actions/user';
@@ -37,6 +40,7 @@ class Registration extends Component {
       password: "",
       repeat_password: "",
       loading: false,
+      avatarSource: null,
     }
   }
 
@@ -48,6 +52,7 @@ class Registration extends Component {
         showToast('Паролі незбігаються');
       } else {
         let paramsUser = {
+          avatar: this.state.avatarSource,
           username: this.state.username,
           email: this.state.email,
           telephone: this.state.telephone,
@@ -76,6 +81,39 @@ class Registration extends Component {
     }
   }
 
+  selectPhotoTapped() {
+    const options = {
+      title: 'Виберіть фото',
+      storageOptions: {
+        skipBackup: true,
+        cameraRoll: true,
+      },
+      quality: 0.8,
+      mediaType: 'photo',
+      maxHeight: 2000,
+      maxWidth: 1000
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        showToast('Ви відмінили вибір фотографії');
+      }
+      else if (response.error) {
+        showToast(`Помилка ${response.error}`);
+      }
+      else if (response.customButton) {
+        showToast(response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -92,7 +130,15 @@ class Registration extends Component {
         </Header>
 
         <Content>
-          <View style={styles.bg}>
+          <Body style={styles.bg}>  
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View>
+              { this.state.avatarSource === null ?
+                <View style={styles.avatarContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
+                <Image style={styles.avatar} source={this.state.avatarSource} />
+              }
+              </View>
+            </TouchableOpacity>
             <Item floatingLabel
                   error={this.state.username == "" ? true : false }
                   style={styles.input}>
@@ -145,7 +191,7 @@ class Registration extends Component {
               />
             </Item>
             {this.isLoading()}
-          </View>
+          </Body>
         </Content>
       </Container>
     );

@@ -1,9 +1,3 @@
-const React = require('react-native');
-
-const {StyleSheet, Dimensions} = React;
-
-const deviceHeight = Dimensions.get('window').height;
-
 export default {
   container: {
     position: 'absolute',
@@ -19,14 +13,10 @@ export default {
     height: null,
   },
   bg: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingBottom: 10,
-    bottom: 0,
+    paddingBottom: 5
   },
   input: {
     marginBottom: 10,
@@ -35,4 +25,16 @@ export default {
     marginTop: 20,
     alignSelf: 'center',
   },
+  avatarContainer: {
+    backgroundColor: '#9B9B9B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 100
+  },
+  avatar: {
+    borderRadius: 75,
+    width: 150,
+    height: 150
+  }
 };
