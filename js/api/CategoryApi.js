@@ -2,13 +2,16 @@ import request from 'superagent';
 
 class CategoryApi {
   /* Get all categories */
-  static getAllCategories() {
-    let req = request.get('/categories.json');
-    return req.then(response => {
-      return response;
-    }, error => {
-      return error;
+  static async getAllCategories() {
+    let response = await fetch('http://firtkashop.herokuapp.com/categories/1.json?per=100', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
     });
+    
+    return response = await response.text()
   }
 }
 

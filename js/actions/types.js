@@ -10,3 +10,4 @@ export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_OUT = 'LOG_OUT';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const ADD_PRODUCT = 'ADD_PRODUCT';

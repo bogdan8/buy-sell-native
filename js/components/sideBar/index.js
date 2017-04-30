@@ -23,9 +23,14 @@ class SideBar extends Component {
         </ListItem>
       </View>
     } else {
-      return <ListItem button onPress={() => { this.props.actions.signOutUser(); this.props.actions.closeDrawer(); }}>
-        <Text>Вихід</Text>
-      </ListItem>
+      return <View>
+        <ListItem button onPress={() => { Actions.createProduct(); this.props.actions.closeDrawer(); }}>
+          <Text>Додати оголошення</Text>
+        </ListItem>
+        <ListItem button onPress={() => { this.props.actions.signOutUser(); this.props.actions.closeDrawer(); }}>
+          <Text>Вихід</Text>
+        </ListItem>
+      </View>
     }
   }
 

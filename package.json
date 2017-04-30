@@ -29,9 +29,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.1",
     "eslint-plugin-react": "^6.2.0",
     "eslint-plugin-react-native": "^2.0.0",
-    "react-test-renderer": "15.3.2",
-    "remote-redux-devtools-on-debugger": "^0.7.0",
-    "remotedev-server": "^0.1.2"
+    "react-test-renderer": "15.3.2"
   },
   "keywords": [
     "android",
@@ -52,6 +50,5 @@
     "react-native with redux boilerplate",
     "native-base boilerplate",
     "react-native with native-base"
-  ],
-  "upstreamRepo": "git@github.com:GeekyAnts/react-native-native-base-seed.git"
+  ]
 }

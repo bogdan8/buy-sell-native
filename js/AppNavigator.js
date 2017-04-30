@@ -10,6 +10,7 @@ import * as drawerActions from './actions/drawer';
 import SignIn from './components/signin/';
 import Registration from './components/registration/';
 import Home from './components/home/';
+import CreateProduct from './components/createProduct/';
 import SideBar from './components/sideBar';
 import {statusBarColor} from './themes/base-theme';
 
@@ -81,7 +82,8 @@ class AppNavigator extends Component {
           <Scene key="root">
             <Scene key="signin" component={SignIn}/>
             <Scene key="registration" component={Registration}/>
-            <Scene key="home" component={Home} hideNavBar initial/>
+            <Scene key="createProduct" component={CreateProduct}/>
+            <Scene key="home" component={Home} hideNavBar initial />
           </Scene>
         </RouterWithRedux>
       </Drawer>
