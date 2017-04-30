@@ -41,7 +41,7 @@ class Registration extends Component {
   }
 
   onRegisterPressed() {
-    if (this.state.email == "" && this.state.username == "" && this.state.password == "" && this.state.telephone == "") {
+    if (this.state.email == "" || this.state.username == "" || this.state.password == "" || this.state.telephone == "") {
       showToast('Ви незаповнели обов\'язкові поля');
     } else {
       if (this.state.password != this.state.repeat_password) {
@@ -103,18 +103,28 @@ class Registration extends Component {
                   error={this.state.email == "" ? true : false }
                   style={styles.input}>
               <Label>Електрона пошта*</Label>
-              <Input onChangeText={(val) => this.setState({email: val})}/>
+              <Input 
+              keyboardType='email-address'
+              onChangeText={(val) => this.setState({email: val})}
+              />
             </Item>
             <Item floatingLabel
                   error={this.state.telephone == "" ? true : false }
                   style={styles.input}>
               <Label>Телефон*</Label>
-              <Input onChangeText={(val) => this.setState({telephone: val})}/>
+              <Input 
+              keyboardType='numeric'
+              maxLength={10}
+              onChangeText={(val) => this.setState({telephone: val})}
+              />
             </Item>
             <Item floatingLabel
                   style={styles.input}>
               <Label>Місце знаходження</Label>
-              <Input onChangeText={(val) => this.setState({location: val})}/>
+              <Input 
+              multiline={true}
+              onChangeText={(val) => this.setState({location: val})}
+              />
             </Item>
             <Item floatingLabel
                   error={this.state.password == "" ? true : false }

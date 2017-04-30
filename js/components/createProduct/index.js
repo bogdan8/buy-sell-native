@@ -45,7 +45,7 @@ class CreateProduct extends Component {
   }
 
   onCreateProductPressed() {
-    if (this.state.text == "" && this.state.price == "" && this.state.category_id == "" ) {
+    if (this.state.text == "" || this.state.price == "" || this.state.category_id == "" ) {
       showToast('Ви незаповнели обов\'язкові поля');
     } else {
       let paramsProduct = {
@@ -107,13 +107,20 @@ class CreateProduct extends Component {
                   error={this.state.text == "" ? true : false }
                   style={styles.input}>
               <Label>Опис*</Label>
-              <Input onChangeText={(val) => this.setState({text: val})}/>
+              <Input 
+              multiline={true}
+              onChangeText={(val) => this.setState({text: val})}
+              />
             </Item>
             <Item floatingLabel
                   error={this.state.price == "" ? true : false }
                   style={styles.input}>
               <Label>Ціна (грн)*</Label>
-              <Input onChangeText={(val) => this.setState({price: val})}/>
+              <Input 
+              keyboardType='numeric'
+              maxLength={5}
+              onChangeText={(val) => this.setState({price: val})}
+              />
             </Item>
             {this.isLoading()}
           </View>

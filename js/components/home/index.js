@@ -60,6 +60,10 @@ class Home extends Component {
             <Icon name="logo-usd"/>
             <Text> {product.price}.грн</Text>
           </Button>
+          <Button transparent textStyle={{color: '#87838B'}}>
+            <Icon name="clock"/>
+            <Text> {product.updated_at.substring(0,10)}</Text>
+          </Button>
           </Body>
         </CardItem>
       </Card>
