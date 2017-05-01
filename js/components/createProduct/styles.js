@@ -33,5 +33,16 @@ export default {
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  imageContainer: {
+    backgroundColor: '#9B9B9B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 100,
+  },
+  image: {
+    width: 150,
+    height: 150
   }
 };

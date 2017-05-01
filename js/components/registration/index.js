@@ -18,9 +18,9 @@ import {
   Spinner
 } from 'native-base';
 import {TouchableOpacity, Image} from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
 import {showToast} from '../../helpers/helpers';
-import ImagePicker from 'react-native-image-picker';
 
 import * as drawerActions from '../../actions/drawer';
 import * as userActions from '../../actions/user';

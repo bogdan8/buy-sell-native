@@ -18,6 +18,9 @@ import {
   Spinner,
   Picker
 } from 'native-base';
+import {TouchableOpacity, Image} from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+
 import {showToast} from '../../helpers/helpers';
 
 import * as drawerActions from '../../actions/drawer';
@@ -37,6 +40,7 @@ class CreateProduct extends Component {
       category_id: "",
       price: 0,
       loading: false,
+      imageSource: null,
     }
   }
 
@@ -53,6 +57,7 @@ class CreateProduct extends Component {
         user_id: this.props.session.id,
         category_id: this.state.category_id,
         price: this.state.price,
+        image: this.state.imageSource,
       };
       this.setState({
         loading: true
@@ -75,6 +80,39 @@ class CreateProduct extends Component {
     }
   }
 
+  selectPhotoTapped() {
+    const options = {
+      title: 'Виберіть фото',
+      storageOptions: {
+        skipBackup: true,
+        cameraRoll: true,
+      },
+      quality: 0.8,
+      mediaType: 'photo',
+      maxHeight: 2000,
+      maxWidth: 1000
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        showToast('Ви відмінили вибір фотографії');
+      }
+      else if (response.error) {
+        showToast(`Помилка ${response.error}`);
+      }
+      else if (response.customButton) {
+        showToast(response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        this.setState({
+          imageSource: source
+        });
+      }
+    });
+  }
+
   render() {
     const categories = this.props.categories.map((category, index) => {
       return <Item key={index} label={category.name} value={category.id} />
@@ -93,6 +131,16 @@ class CreateProduct extends Component {
         </Header>
 
         <Content>
+          <Body style={styles.bg}>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View>
+                { this.state.imageSource === null ?
+                  <View style={styles.imageContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
+                  <Image style={styles.image} source={this.state.imageSource} />
+                }
+              </View>
+            </TouchableOpacity>
+          </Body>
           <Label style={styles.pickerTitle}>Категорія*</Label>
           <Picker
             style={styles.bg}
@@ -102,7 +150,7 @@ class CreateProduct extends Component {
             onValueChange={(val) => this.setState({category_id: val})}>
             {categories}
           </Picker>
-          <View style={styles.bg}>
+          <Body style={styles.bg}>
             <Item floatingLabel
                   error={this.state.text == "" ? true : false }
                   style={styles.input}>
@@ -123,7 +171,7 @@ class CreateProduct extends Component {
               />
             </Item>
             {this.isLoading()}
-          </View>
+          </Body>
         </Content>
       </Container>
     );
