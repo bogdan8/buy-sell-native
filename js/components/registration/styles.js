@@ -1,6 +1,5 @@
 export default {
   container: {
-    position: 'absolute',
     top: 0,
     bottom: 0,
     left: 0,
@@ -16,7 +15,7 @@ export default {
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   input: {
     marginBottom: 10,
@@ -30,7 +29,8 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
-    height: 100
+    height: 100,
+    borderRadius: 75,
   },
   avatar: {
     borderRadius: 75,

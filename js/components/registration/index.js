@@ -15,10 +15,10 @@ import {
   Right,
   Title,
   Label,
-  Spinner,
-  
+  Spinner
 } from 'native-base';
 import {TouchableOpacity, Image} from 'react-native';
+
 import {showToast} from '../../helpers/helpers';
 import ImagePicker from 'react-native-image-picker';
 
@@ -130,7 +130,7 @@ class Registration extends Component {
         </Header>
 
         <Content>
-          <Body style={styles.bg}>  
+          <Body style={styles.bg}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View>
               { this.state.avatarSource === null ?
