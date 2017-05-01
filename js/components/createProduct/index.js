@@ -41,6 +41,7 @@ class CreateProduct extends Component {
       price: 0,
       loading: false,
       imageSource: null,
+      image: new Image,
     }
   }
 
@@ -57,7 +58,7 @@ class CreateProduct extends Component {
         user_id: this.props.session.id,
         category_id: this.state.category_id,
         price: this.state.price,
-        image: this.state.imageSource,
+        image: this.state.image,
       };
       this.setState({
         loading: true
@@ -107,7 +108,8 @@ class CreateProduct extends Component {
         let source = { uri: response.uri };
 
         this.setState({
-          imageSource: source
+          imageSource: source,
+          image: response
         });
       }
     });

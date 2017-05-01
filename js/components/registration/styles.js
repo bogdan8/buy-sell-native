@@ -34,7 +34,7 @@ export default {
   },
   avatar: {
     borderRadius: 75,
-    width: 150,
-    height: 150
+    width: 100,
+    height: 100
   }
 };

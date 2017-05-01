@@ -41,6 +41,7 @@ class Registration extends Component {
       repeat_password: "",
       loading: false,
       avatarSource: null,
+      avatar: new Image()
     }
   }
 
@@ -52,7 +53,7 @@ class Registration extends Component {
         showToast('Паролі незбігаються', 'danger');
       } else {
         let paramsUser = {
-          avatar: this.state.avatarSource,
+          avatar: this.state.avatar,
           username: this.state.username,
           email: this.state.email,
           telephone: this.state.telephone,
@@ -106,9 +107,10 @@ class Registration extends Component {
       }
       else {
         let source = { uri: response.uri };
-
+        
         this.setState({
-          avatarSource: source
+          avatarSource: source,
+          avatar: response
         });
       }
     });
