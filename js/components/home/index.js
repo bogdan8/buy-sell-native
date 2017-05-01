@@ -72,7 +72,7 @@ class Home extends Component {
       <Container style={styles.container}>
         <Header>
           <Body>
-          <Title>{(this.props.name) ? this.props.name : 'Home'}</Title>
+          <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
           </Body>
 
           <Right>
@@ -81,7 +81,6 @@ class Home extends Component {
             </Button>
           </Right>
         </Header>
-
         <Content>
           {products}
         </Content>
@@ -92,7 +91,7 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-    name: 'Bobo',
+    session: state.session,
     products: state.products
   }
 }

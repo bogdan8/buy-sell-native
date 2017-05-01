@@ -1,5 +1,3 @@
-import request from 'superagent';
-
 class CategoryApi {
   /* Get all categories */
   static async getAllCategories() {

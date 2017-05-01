@@ -21,8 +21,10 @@ export function allUsers(jwt) {
 export function addUser(paramsUser) {
   return (dispatch) => {
     return userApi.createUser(paramsUser).then(response => {
-      Actions.signin();
-      showToast(response.message.text);
+      if(response.message.type == 'success'){
+        Actions.signin();
+      }
+      showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type);
     }).catch(error => {
       throw(error);
     });

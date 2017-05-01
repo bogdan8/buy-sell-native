@@ -50,7 +50,7 @@ class CreateProduct extends Component {
 
   onCreateProductPressed() {
     if (this.state.text == "" || this.state.price == "" || this.state.category_id == "" ) {
-      showToast('Ви незаповнели обов\'язкові поля');
+      showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
       let paramsProduct = {
         text: this.state.text,
@@ -95,13 +95,13 @@ class CreateProduct extends Component {
 
     ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        showToast('Ви відмінили вибір фотографії');
+        showToast('Ви відмінили вибір фотографії', 'warning');
       }
       else if (response.error) {
-        showToast(`Помилка ${response.error}`);
+        showToast(`Помилка ${response.error}`, 'danger');
       }
       else if (response.customButton) {
-        showToast(response.customButton);
+        showToast(response.customButton, 'danger');
       }
       else {
         let source = { uri: response.uri };
@@ -121,7 +121,7 @@ class CreateProduct extends Component {
       <Container style={styles.container}>
         <Header>
           <Body>
-            <Title>{(this.props.session.username) ? this.props.session.username : 'Home'}</Title>
+            <Title>{(this.props.session.username) ? this.props.session.username : 'Додати оголошення'}</Title>
           </Body>
           <Right>
             <Button transparent onPress={this.props.actions.openDrawer}>

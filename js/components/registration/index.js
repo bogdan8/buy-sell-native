@@ -46,10 +46,10 @@ class Registration extends Component {
 
   onRegisterPressed() {
     if (this.state.email == "" || this.state.username == "" || this.state.password == "" || this.state.telephone == "") {
-      showToast('Ви незаповнели обов\'язкові поля');
+      showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
       if (this.state.password != this.state.repeat_password) {
-        showToast('Паролі незбігаються');
+        showToast('Паролі незбігаються', 'danger');
       } else {
         let paramsUser = {
           avatar: this.state.avatarSource,
@@ -96,13 +96,13 @@ class Registration extends Component {
 
     ImagePicker.showImagePicker(options, (response) => {
       if (response.didCancel) {
-        showToast('Ви відмінили вибір фотографії');
+        showToast('Ви відмінили вибір фотографії', 'warning');
       }
       else if (response.error) {
-        showToast(`Помилка ${response.error}`);
+        showToast(`Помилка ${response.error}`, 'danger');
       }
       else if (response.customButton) {
-        showToast(response.customButton);
+        showToast(response.customButton, 'danger');
       }
       else {
         let source = { uri: response.uri };
@@ -119,7 +119,7 @@ class Registration extends Component {
       <Container style={styles.container}>
         <Header>
           <Body>
-          <Title>{(this.props.name) ? this.props.name : 'Home'}</Title>
+          <Title>Реєстрація</Title>
           </Body>
 
           <Right>
@@ -133,10 +133,10 @@ class Registration extends Component {
           <Body style={styles.bg}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View>
-              { this.state.avatarSource === null ?
-                <View style={styles.avatarContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
-                <Image style={styles.avatar} source={this.state.avatarSource} />
-              }
+                { this.state.avatarSource === null ?
+                  <View style={styles.avatarContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
+                  <Image style={styles.avatar} source={this.state.avatarSource} />
+                }
               </View>
             </TouchableOpacity>
             <Item floatingLabel
@@ -198,16 +198,10 @@ class Registration extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    name: 'Bobo'
-  }
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({...drawerActions, ...userActions}, dispatch)
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registration);
+export default connect(null, mapDispatchToProps)(Registration);

@@ -24,7 +24,7 @@ export function addProduct(paramsProduct, jwt) {
         type: types.ADD_PRODUCT,
         products: paramsProduct
       });
-      showToast(response.message.text);
+      showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type );
     }).catch(error => {
       throw(error);
     });

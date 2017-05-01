@@ -51,7 +51,7 @@ class SignIn extends Component {
         })
       });
     } else {
-      showToast('Ви нічого неввели');
+      showToast('Ви нічого неввели', 'warning');
     }
   }
 
@@ -70,7 +70,7 @@ class SignIn extends Component {
       <Container style={styles.container}>
         <Header>
           <Body>
-          <Title>{(this.props.name) ? this.props.name : 'Home'}</Title>
+          <Title>Вхід</Title>
           </Body>
 
           <Right>
@@ -103,11 +103,6 @@ class SignIn extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    name: 'Bobo'
-  }
-}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -115,4 +110,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

@@ -7,7 +7,7 @@ export function logInUser(credentials) {
   return function (dispatch) {
     return sessionApi.login(credentials).then(response => {
       if (response.status == '404') {
-        showToast('Невірні данні');
+        showToast('Невірні данні', 'danger');
       } else {
         dispatch({
           type: types.LOG_IN_SUCCESS,
@@ -17,7 +17,7 @@ export function logInUser(credentials) {
           }
         });
         Actions.home();
-        showToast('Ви ввійшли');
+        showToast('Ви ввійшли', 'success');
       }
     }).catch(error => {
       throw(error);
@@ -35,6 +35,6 @@ export function signOutUser() {
       }
     });
     Actions.home();
-    showToast('Ви вийшли');
+    showToast('Ви вийшли', 'success');
   }
 }
