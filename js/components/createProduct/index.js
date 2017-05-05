@@ -38,7 +38,7 @@ class CreateProduct extends Component {
     this.state = {
       text: "",
       category_id: "",
-      price: 0,
+      price: "",
       loading: false,
       imageSource: null,
       image: new Image,
@@ -50,24 +50,28 @@ class CreateProduct extends Component {
   }
 
   onCreateProductPressed() {
-    if (this.state.text == "" || this.state.price == "" || this.state.category_id == "" ) {
+    if (this.state.text === "" || this.state.price === "" ) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
-      let paramsProduct = {
-        text: this.state.text,
-        user_id: this.props.session.id,
-        category_id: this.state.category_id,
-        price: this.state.price,
-        image: this.state.image,
-      };
-      this.setState({
-        loading: true
-      });
-      this.props.actions.addProduct(paramsProduct, this.props.session.jwt).then(() => {
+      if (this.state.category_id === "") {
+        showToast('Ви невибрали категорію', 'warning');
+      }else{
+        let paramsProduct = {
+          text: this.state.text,
+          user_id: this.props.session.id,
+          category_id: this.state.category_id,
+          price: this.state.price,
+          image: this.state.image,
+        };
         this.setState({
-          loading: false
-        })
-      });
+          loading: true
+        });
+        this.props.actions.addProduct(paramsProduct, this.props.session.jwt).then(() => {
+          this.setState({
+            loading: false
+          })
+        });
+      }
     }
   }
 
@@ -147,7 +151,8 @@ class CreateProduct extends Component {
           <Picker
             style={styles.bg}
             iosHeader="Select one"
-            mode="dropdown"
+            mode="dialog"
+            prompt="Виберіть категорію"
             selectedValue={this.state.category_id}
             onValueChange={(val) => this.setState({category_id: val})}>
             {categories}
