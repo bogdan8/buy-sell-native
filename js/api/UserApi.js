@@ -9,7 +9,7 @@ class UserApi {
         'Content-Type': 'application/json'
       }
     });
-    return response = JSON.parse(await response.text())
+    return response = JSON.parse(await response.text());
   }
 
   /* Create user */
@@ -20,17 +20,19 @@ class UserApi {
    formData.append('user[password]', paramsUser.password);
    formData.append('user[location]', paramsUser.location);
    formData.append('user[telephone]', paramsUser.telephone);
-   formData.append('user[avatar]', {
+   if(paramsUser.avatar.fileName){ // check if upload avatar
+    formData.append('user[avatar]', {
      uri: paramsUser.avatar.uri,
      type: paramsUser.avatar.type,
      name: paramsUser.avatar.fileName,
    });
-   let response = await fetch('http://fshop.ustk.in.ua/users.json', {
+  }
+  let response = await fetch('http://fshop.ustk.in.ua/users.json', {
     method: 'POST',
     body: formData
   });
-   return response = JSON.parse(await response.text())
- }
+  return response = JSON.parse(await response.text());
+}
 }
 
 export default UserApi;

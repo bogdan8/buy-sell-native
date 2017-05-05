@@ -19,11 +19,13 @@ class ProductApi {
    formData.append('product[user_id]', paramsProduct.user_id);
    formData.append('product[category_id]', paramsProduct.category_id);
    formData.append('product[price]', paramsProduct.price);
-   formData.append('product[image]', {
-     uri: paramsProduct.image.uri,
-     type: paramsProduct.image.type,
-     name: paramsProduct.image.fileName,
-   });
+   if(paramsProduct.image.fileName){ // check if upload image
+     formData.append('product[image]', {
+       uri: paramsProduct.image.uri,
+       type: paramsProduct.image.type,
+       name: paramsProduct.image.fileName,
+     });
+   }
    let response = await fetch('http://fshop.ustk.in.ua/products.json', {
     method: 'POST',
     headers: {
