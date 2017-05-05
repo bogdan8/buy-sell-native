@@ -80,10 +80,10 @@ class AppNavigator extends Component {
         />
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="signin" component={SignIn}/>
-            <Scene key="registration" component={Registration}/>
-            <Scene key="createProduct" component={CreateProduct}/>
-            <Scene key="home" component={Home} hideNavBar initial />
+            <Scene key="signin" panHandlers={null} component={SignIn}/>
+            <Scene key="registration" panHandlers={null} component={Registration}/>
+            <Scene key="createProduct" panHandlers={null} component={CreateProduct}/>
+            <Scene key="home" component={Home} panHandlers={null} hideNavBar initial />
           </Scene>
         </RouterWithRedux>
       </Drawer>
