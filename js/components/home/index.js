@@ -35,7 +35,7 @@ class Home extends Component {
         <CardItem>
           <Left>
             <Thumbnail
-              source={{uri: `https://firtkashop.herokuapp.com/system/users/avatars/${product.user.id}/small/${product.user.avatar_file_name}`}}
+              source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${product.user.id}/small/${product.user.avatar_file_name}`}}
             />
             <Body>
             <Text>{product.user.username ? product.user.username : 'Користувач'}</Text>
@@ -47,7 +47,7 @@ class Home extends Component {
           <Body>
           <Image
             style={styles.productImage}
-            source={{uri: `http://firtkashop.herokuapp.com/system/products/images/${product.id}/medium/${product.image_file_name}`}}
+            source={{uri: `http://fshop.ustk.in.ua/system/products/images/${product.id}/medium/${product.image_file_name}`}}
           />
           <Text>
             {product.text}
