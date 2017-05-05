@@ -14,22 +14,23 @@ class UserApi {
 
   /* Create user */
   static async createUser(paramsUser) {
-    let formData = new FormData();
-    let avatar = {
+   let formData = new FormData();
+   formData.append('user[username]', paramsUser.username);
+   formData.append('user[email]', paramsUser.email);
+   formData.append('user[password]', paramsUser.password);
+   formData.append('user[location]', paramsUser.location);
+   formData.append('user[telephone]', paramsUser.telephone);
+   formData.append('user[avatar]', {
      uri: paramsUser.avatar.uri,
      type: paramsUser.avatar.type,
      name: paramsUser.avatar.fileName,
-   }
-   formData.append('user[username]', paramsUser.username);
-   formData.append('user[email]', paramsUser.email);
-   formData.append('user[password]', paramsUser.passwrod);
-   formData.append('user[location]', paramsUser.location);
-   formData.append('user[telephone]', paramsUser.telephone);
-   formData.append('user[avatar]', avatar);
-   let xhr = new XMLHttpRequest();
-   xhr.open('POST', 'http://fshop.ustk.in.ua/users.json');
-   xhr.send(formData);
+   });
+   let response = await fetch('http://fshop.ustk.in.ua/users.json', {
+    method: 'POST',
+    body: formData
+  });
+   return response = JSON.parse(await response.text())
  }
 }
 
-export default UserApi
+export default UserApi;

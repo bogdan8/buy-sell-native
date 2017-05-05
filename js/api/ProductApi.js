@@ -14,21 +14,24 @@ class ProductApi {
 
   /* Create product */
   static async createProduct(paramsProduct, jwt) {
-    let formData = new FormData();
-    let image = {
-     uri: paramsProduct.image.uri,
-     type: paramsProduct.image.type,
-     name: paramsProduct.image.fileName,
-   }
+   let formData = new FormData();
    formData.append('product[text]', paramsProduct.text);
    formData.append('product[user_id]', paramsProduct.user_id);
    formData.append('product[category_id]', paramsProduct.category_id);
    formData.append('product[price]', paramsProduct.price);
-   formData.append('product[image]', image);
-   let xhr = new XMLHttpRequest();
-   xhr.open('POST', 'http://fshop.ustk.in.ua/products.json');
-   xhr.setRequestHeader('AUTHORIZATION', `Bearer ${jwt}`,)
-   xhr.send(formData);
+   formData.append('product[image]', {
+     uri: paramsProduct.image.uri,
+     type: paramsProduct.image.type,
+     name: paramsProduct.image.fileName,
+   });
+   let response = await fetch('http://fshop.ustk.in.ua/products.json', {
+    method: 'POST',
+    headers: {
+      'AUTHORIZATION': `Bearer ${jwt}`,
+    },
+    body: formData
+  });
+   return response = JSON.parse(await response.text())
  }
 }
 

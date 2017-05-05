@@ -1,3 +1,4 @@
+import {Actions} from 'react-native-router-flux';
 import * as types from './types';
 import productApi from '../api/ProductApi';
 import {showToast} from '../helpers/helpers';
@@ -20,10 +21,9 @@ export function allProducts() {
 export function addProduct(paramsProduct, jwt) {
   return (dispatch) => {
     return productApi.createProduct(paramsProduct, jwt).then(response => {
-      dispatch({
-        type: types.ADD_PRODUCT,
-        products: paramsProduct
-      });
+      if(response.message.type == 'success'){
+        Actions.home();
+      }
       showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type );
     }).catch(error => {
       throw(error);
