@@ -145,33 +145,39 @@ class Registration extends Component {
                   error={this.state.username == "" ? true : false }
                   style={styles.input}>
               <Label>{"Ім'я*"}</Label>
-              <Input onChangeText={(val) => this.setState({username: val})}/>
+              <Input  
+                returnKeyType="next"
+                onChangeText={(val) => this.setState({username: val})}
+              />
             </Item>
             <Item floatingLabel
                   error={this.state.email == "" ? true : false }
                   style={styles.input}>
               <Label>Електрона пошта*</Label>
               <Input 
-              keyboardType='email-address'
-              onChangeText={(val) => this.setState({email: val})}
+                returnKeyType="next"
+                keyboardType='email-address'
+                onChangeText={(val) => this.setState({email: val})}
               />
             </Item>
             <Item floatingLabel
                   error={this.state.telephone == "" ? true : false }
                   style={styles.input}>
               <Label>Телефон*</Label>
-              <Input 
-              keyboardType='numeric'
-              maxLength={10}
-              onChangeText={(val) => this.setState({telephone: val})}
+              <Input
+                returnKeyType="next" 
+                keyboardType='numeric'
+                maxLength={10}
+                onChangeText={(val) => this.setState({telephone: val})}
               />
             </Item>
             <Item floatingLabel
                   style={styles.input}>
               <Label>Місце знаходження</Label>
-              <Input 
-              multiline={true}
-              onChangeText={(val) => this.setState({location: val})}
+              <Input
+                returnKeyType="next" 
+                multiline={true}
+                onChangeText={(val) => this.setState({location: val})}
               />
             </Item>
             <Item floatingLabel
@@ -179,6 +185,7 @@ class Registration extends Component {
                   style={styles.input}>
               <Label>Пароль*</Label>
               <Input
+                returnKeyType="next"
                 onChangeText={(val) => this.setState({password: val})}
                 secureTextEntry
               />
@@ -188,6 +195,7 @@ class Registration extends Component {
                   style={styles.input}>
               <Label>Повторіть пароль*</Label>
               <Input
+                returnKeyType="send"
                 onChangeText={(val) => this.setState({repeat_password: val})}
                 secureTextEntry
               />

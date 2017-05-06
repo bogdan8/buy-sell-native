@@ -25,7 +25,6 @@ import {showToast} from '../../helpers/helpers';
 
 import * as drawerActions from '../../actions/drawer';
 import * as productActions from '../../actions/product';
-import * as categoryActions from '../../actions/category';
 import * as sessionActions from '../../actions/session';
 
 import styles from './styles';
@@ -37,16 +36,12 @@ class CreateProduct extends Component {
 
     this.state = {
       text: "",
-      category_id: "",
+      category_id: props.categories[0]['id'],
       price: "",
       loading: false,
       imageSource: null,
       image: new Image,
     }
-  }
-
-  componentWillMount(){
-    this.props.actions.allCategories();
   }
 
   onCreateProductPressed() {
@@ -150,7 +145,7 @@ class CreateProduct extends Component {
           <Label style={styles.pickerTitle}>Категорія*</Label>
           <Picker
             style={styles.bg}
-            iosHeader="Select one"
+            iosHeader="Виберіть категорію"
             mode="dialog"
             prompt="Виберіть категорію"
             selectedValue={this.state.category_id}
@@ -194,7 +189,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({...drawerActions, ...productActions, ...sessionActions, ...categoryActions}, dispatch)
+    actions: bindActionCreators({...drawerActions, ...productActions, ...sessionActions}, dispatch)
   };
 }
 

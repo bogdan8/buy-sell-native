@@ -6,6 +6,7 @@ import {Drawer} from 'native-base';
 import {Router, Scene} from 'react-native-router-flux';
 
 import * as drawerActions from './actions/drawer';
+import * as categoryActions from './actions/category';
 
 import SignIn from './components/signin/';
 import Registration from './components/registration/';
@@ -23,6 +24,9 @@ class AppNavigator extends Component {
     closeDrawer: React.PropTypes.func,
   };
 
+  componentWillMount(){
+    this.props.actions.allCategories();
+  }
 
   componentDidUpdate() {
     if (this.props.drawerState === 'opened') {
@@ -91,14 +95,16 @@ class AppNavigator extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps(state) {
   return {
-    actions: bindActionCreators(drawerActions, dispatch)
-  };
+    drawerState: state.drawer.drawerState
+  }
 }
 
-const mapStateToProps = state => ({
-  drawerState: state.drawer.drawerState
-});
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({...drawerActions, ...categoryActions}, dispatch)
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator);
