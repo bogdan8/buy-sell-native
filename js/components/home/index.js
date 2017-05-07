@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Image} from 'react-native';
 import {connect} from 'react-redux';
+import {Actions} from 'react-native-router-flux';
 import {bindActionCreators} from 'redux';
 import {
   Container,
@@ -12,10 +13,13 @@ import {
   Icon,
   Body,
   Right,
-  Card,
-  CardItem,
   Left,
-  Thumbnail
+  ListItem,
+  Thumbnail,
+  Footer,
+  FooterTab,
+  Picker,
+  Item
 } from 'native-base';
 
 import * as drawerActions from '../../actions/drawer';
@@ -31,42 +35,23 @@ class Home extends Component {
 
   render() {
     const products = this.props.products.map((product, index) => {
-      return <Card style={{ flex: 0 }} key={index}>
-        <CardItem>
-          <Left>
-            <Thumbnail
-              source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${product.user.id}/small/${product.user.avatar_file_name}`}}
-            />
-            <Body>
-            <Text>{product.user.username ? product.user.username : 'Користувач'}</Text>
-            <Text note>{product.user.telephone}</Text>
-            </Body>
+      let active = product.prepaid_products.length > 0 ? 'rgba(255,153,130,.74)' : '#FFFFFF';
+      return <ListItem avatar 
+              key={index}  
+              onPress={() => Actions.cartProduct({product}) }
+              style={{backgroundColor: active, marginLeft: 0}}
+            >
+          <Left style={{marginLeft: 5}}>
+              <Thumbnail  square size={80} source={{uri: `http://fshop.ustk.in.ua/system/products/images/${product.id}/medium/${product.image_file_name}`}} />
           </Left>
-        </CardItem>
-        <CardItem>
           <Body>
-          <Image
-            style={styles.productImage}
-            source={{uri: `http://fshop.ustk.in.ua/system/products/images/${product.id}/medium/${product.image_file_name}`}}
-          />
-          <Text>
-            {product.text}
-          </Text>
+              <Text>{product.user.username ? product.user.username : 'Користувач'}  </Text>
+              <Text note>{product.text}</Text>
           </Body>
-        </CardItem>
-        <CardItem>
-          <Body style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-          <Button transparent textStyle={{color: '#87838B'}}>
-            <Icon name="logo-usd"/>
-            <Text> {product.price}.грн</Text>
-          </Button>
-          <Button transparent textStyle={{color: '#87838B'}}>
-            <Icon name="clock"/>
-            <Text> {product.updated_at.substring(0,10)}</Text>
-          </Button>
-          </Body>
-        </CardItem>
-      </Card>
+          <Right>
+              <Icon active style={styles.arrowForward} name="arrow-forward"/>
+          </Right>
+      </ListItem>
     });
     return (
       <Container style={styles.container}>
@@ -74,7 +59,6 @@ class Home extends Component {
           <Body>
           <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
           </Body>
-
           <Right>
             <Button transparent onPress={this.props.actions.openDrawer}>
               <Icon active name="menu"/>
@@ -84,6 +68,13 @@ class Home extends Component {
         <Content>
           {products}
         </Content>
+        <Footer>
+          <FooterTab>
+            <Button>
+                <Icon name="list" />
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     );
   }

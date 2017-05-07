@@ -12,6 +12,7 @@ import SignIn from './components/signin/';
 import Registration from './components/registration/';
 import Home from './components/home/';
 import CreateProduct from './components/createProduct/';
+import CartProduct from './components/cartProduct/';
 import SideBar from './components/sideBar';
 import {statusBarColor} from './themes/base-theme';
 
@@ -87,6 +88,7 @@ class AppNavigator extends Component {
             <Scene key="signin" panHandlers={null} component={SignIn}/>
             <Scene key="registration" panHandlers={null} component={Registration}/>
             <Scene key="createProduct" panHandlers={null} component={CreateProduct}/>
+            <Scene key="cartProduct" component={CartProduct}/>
             <Scene key="home" component={Home} panHandlers={null} hideNavBar initial />
           </Scene>
         </RouterWithRedux>

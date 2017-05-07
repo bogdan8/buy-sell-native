@@ -1,4 +1,4 @@
-import {Dimensions, Platform} from 'react-native';
+import {Dimensions} from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -16,9 +16,6 @@ export default {
   },
   productImage: {
     width: deviceWidth - 40,
-    height: 150
-  },
-  arrowForward: {
-    color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
+    height: 200
   }
 };
