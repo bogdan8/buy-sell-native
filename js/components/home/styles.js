@@ -20,5 +20,26 @@ export default {
   },
   arrowForward: {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
+  },
+  modal: {
+    margin: 20, 
+    backgroundColor: "white",
+    borderRadius: 3,
+    padding: 10
+  },
+  modalHeader: {
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: deviceWidth - 60,
+    height: 30,
+    marginBottom: 20
+  },
+  modalList: {
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  closeBtn: {
+    color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
   }
 };

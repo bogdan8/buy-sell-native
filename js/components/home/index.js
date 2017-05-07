@@ -12,7 +12,7 @@ import {
   Button,
   Icon,
   Body,
-  Right,
+  Right,  
   Left,
   ListItem,
   Thumbnail,
@@ -21,13 +21,20 @@ import {
   Picker,
   Item
 } from 'native-base';
-
+import {Modal, View} from 'react-native';
 import * as drawerActions from '../../actions/drawer';
 import * as productActions from '../../actions/product';
 
 import styles from './styles';
 
 class Home extends Component {
+  state = {
+    modalVisible: false,
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
 
   componentWillMount() {
     this.props.actions.allProducts();
@@ -53,8 +60,36 @@ class Home extends Component {
           </Right>
       </ListItem>
     });
+    const categories = this.props.categories.map((category, index) => {
+      return <Button transparent style={styles.modalList} key={index}>
+        <Text> {category.name} </Text> 
+      </Button>
+    });
     return (
       <Container style={styles.container}>
+      <Modal
+          animationType={"fade"}
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {this.setModalVisible(!this.state.modalVisible)}}
+          >
+         <View style={styles.modal}>
+            <View style={styles.modalHeader}>
+              <Text>
+              </Text>
+              <Text>
+                Виберіть категорію
+              </Text>
+              <Text>
+                <Icon name="close" style={styles.closeBtn} onPress={() => {this.setModalVisible(!this.state.modalVisible) }} />
+              </Text>
+            </View>
+            <Button transparent style={styles.modalList}>
+              <Text> Всі </Text> 
+            </Button>
+            {categories}
+         </View>
+        </Modal>
         <Header>
           <Body>
           <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
@@ -70,7 +105,9 @@ class Home extends Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button>
+            <Button onPress={() => {
+              this.setModalVisible(!this.state.modalVisible)
+            }}>
                 <Icon name="list" />
             </Button>
           </FooterTab>
@@ -83,7 +120,8 @@ class Home extends Component {
 function mapStateToProps(state) {
   return {
     session: state.session,
-    products: state.products
+    products: state.products,
+    categories: state.categories
   }
 }
 
