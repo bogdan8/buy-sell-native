@@ -46,7 +46,7 @@ class Home extends Component {
           </Left>
           <Body>
               <Text>{product.user.username ? product.user.username : 'Користувач'}  </Text>
-              <Text note>{product.text}</Text>
+              <Text note>{product.text.slice(0, 50)}...</Text>
           </Body>
           <Right>
               <Icon active style={styles.arrowForward} name="arrow-forward"/>
