@@ -17,6 +17,20 @@ export function allProducts() {
   };
 }
 
+/* Get all product with chose category */
+export function fetchProductWithCategory(category_id) {
+  return function (dispatch) {
+    return productApi.getProductWithCategory(category_id).then(response => {
+      dispatch({
+        type: types.GET_ALL_PRODUCTS,
+        products: JSON.parse(response)
+      });
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
 /* Create product */
 export function addProduct(paramsProduct, jwt) {
   return (dispatch) => {

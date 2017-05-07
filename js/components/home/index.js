@@ -61,7 +61,15 @@ class Home extends Component {
       </ListItem>
     });
     const categories = this.props.categories.map((category, index) => {
-      return <Button transparent style={styles.modalList} key={index}>
+      return <Button 
+              transparent 
+              style={styles.modalList} 
+              key={index}
+              onPress={() => {
+                this.props.actions.fetchProductWithCategory(category.id);
+                this.setModalVisible(!this.state.modalVisible)
+              }}
+              >
         <Text> {category.name} </Text> 
       </Button>
     });
@@ -71,8 +79,7 @@ class Home extends Component {
           animationType={"fade"}
           transparent={true}
           visible={this.state.modalVisible}
-          onRequestClose={() => {this.setModalVisible(!this.state.modalVisible)}}
-          >
+          onRequestClose={() => {this.setModalVisible(!this.state.modalVisible)}}>
          <View style={styles.modal}>
             <View style={styles.modalHeader}>
               <Text>
@@ -84,7 +91,14 @@ class Home extends Component {
                 <Icon name="close" style={styles.closeBtn} onPress={() => {this.setModalVisible(!this.state.modalVisible) }} />
               </Text>
             </View>
-            <Button transparent style={styles.modalList}>
+            <Button
+              transparent 
+              style={styles.modalList}
+              onPress={() => {
+                this.props.actions.fetchProductWithCategory('0');
+                this.setModalVisible(!this.state.modalVisible)
+                }}
+            >
               <Text> Всі </Text> 
             </Button>
             {categories}

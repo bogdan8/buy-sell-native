@@ -12,6 +12,19 @@ class ProductApi {
     return response = await response.text()
   }
 
+  /* Get all product with chose category */
+  static async getProductWithCategory(category_id) {
+    let response = await fetch(`http://fshop.ustk.in.ua/products/1.json?category_id=${category_id}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    return response = await response.text()
+  }
+
   /* Create product */
   static async createProduct(paramsProduct, jwt) {
    let formData = new FormData();
