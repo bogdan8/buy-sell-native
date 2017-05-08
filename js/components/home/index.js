@@ -30,6 +30,7 @@ import styles from './styles';
 class Home extends Component {
   state = {
     modalVisible: false,
+    choseCategory: ''
   }
 
   setModalVisible(visible) {
@@ -67,10 +68,12 @@ class Home extends Component {
               key={index}
               onPress={() => {
                 this.props.actions.fetchProductWithCategory(category.id);
-                this.setModalVisible(!this.state.modalVisible)
+                this.setModalVisible(!this.state.modalVisible);
+                this.setState({choseCategory: category.id})
               }}
               >
         <Text> {category.name} </Text> 
+        {this.state.choseCategory == category.id ? <Icon name="checkmark" /> : null}
       </Button>
     });
     return (
@@ -79,7 +82,7 @@ class Home extends Component {
           animationType={"fade"}
           transparent={true}
           visible={this.state.modalVisible}
-          onRequestClose={() => {this.setModalVisible(!this.state.modalVisible)}}>
+          onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}>
          <View style={styles.modal}>
             <View style={styles.modalHeader}>
               <Text>
@@ -88,7 +91,7 @@ class Home extends Component {
                 Виберіть категорію
               </Text>
               <Text>
-                <Icon name="close" style={styles.closeBtn} onPress={() => {this.setModalVisible(!this.state.modalVisible) }} />
+                <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(!this.state.modalVisible)} />
               </Text>
             </View>
             <Button
@@ -96,10 +99,12 @@ class Home extends Component {
               style={styles.modalList}
               onPress={() => {
                 this.props.actions.fetchProductWithCategory('0');
-                this.setModalVisible(!this.state.modalVisible)
+                this.setModalVisible(!this.state.modalVisible);
+                this.setState({choseCategory: '0'})
                 }}
             >
               <Text> Всі </Text> 
+              {this.state.choseCategory == '0' ? <Icon name="checkmark" /> : null}
             </Button>
             {categories}
          </View>

@@ -154,16 +154,19 @@ class CreateProduct extends Component {
           </Picker>
           <Body style={styles.bg}>
             <Item floatingLabel
-                  error={this.state.text == "" ? true : false }
+                  error={this.state.text.length < 10 ? true : false }
+                  success={this.state.text.length < 10 ? false : true }
                   style={styles.input}>
               <Label>Опис*</Label>
               <Input 
               multiline={true}
               onChangeText={(val) => this.setState({text: val})}
               />
+              <Icon name={this.state.text.length < 10 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             <Item floatingLabel
-                  error={this.state.price == "" ? true : false }
+                  error={this.state.price.length < 1 ? true : false }
+                  success={this.state.price.length < 1 ? false : true }
                   style={styles.input}>
               <Label>Ціна (грн)*</Label>
               <Input 
@@ -171,6 +174,7 @@ class CreateProduct extends Component {
               maxLength={5}
               onChangeText={(val) => this.setState({price: val})}
               />
+              <Icon name={this.state.price.length < 1 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             {this.isLoading()}
           </Body>

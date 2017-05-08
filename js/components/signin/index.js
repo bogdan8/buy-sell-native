@@ -83,17 +83,23 @@ class SignIn extends Component {
         <Content>
           <View style={styles.bg}>
             <Item floatingLabel
+                  error={this.state.email.length < 6 ? true : false }
+                  success={this.state.email.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Email</Label>
               <Input onChangeText={(text) => this.setState({email: text})}/>
+              <Icon name={this.state.email.length < 6 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             <Item floatingLabel
+                  error={this.state.password.length < 6 ? true : false }
+                  success={this.state.password.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Пароль</Label>
               <Input
                 onChangeText={(text) => this.setState({password: text})}
                 secureTextEntry
               />
+              <Icon name={this.state.password.length < 6 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             {this.isLoading()}
           </View>

@@ -142,16 +142,19 @@ class Registration extends Component {
               </View>
             </TouchableOpacity>
             <Item floatingLabel
-                  error={this.state.username == "" ? true : false }
+                  error={this.state.username.length < 3 ? true : false }
+                  success={this.state.username.length < 3 ? false : true }
                   style={styles.input}>
               <Label>{"Ім'я*"}</Label>
               <Input  
                 returnKeyType="next"
                 onChangeText={(val) => this.setState({username: val})}
               />
+              <Icon name={this.state.username.length < 3 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             <Item floatingLabel
-                  error={this.state.email == "" ? true : false }
+                  error={this.state.email.length < 6 ? true : false }
+                  success={this.state.email.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Електрона пошта*</Label>
               <Input 
@@ -159,9 +162,11 @@ class Registration extends Component {
                 keyboardType='email-address'
                 onChangeText={(val) => this.setState({email: val})}
               />
+              <Icon name={this.state.email.length < 5 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             <Item floatingLabel
-                  error={this.state.telephone == "" ? true : false }
+                  error={this.state.telephone.length < 10 ? true : false }
+                  success={this.state.telephone.length < 10 ? false : true }
                   style={styles.input}>
               <Label>Телефон*</Label>
               <Input
@@ -170,6 +175,7 @@ class Registration extends Component {
                 maxLength={10}
                 onChangeText={(val) => this.setState({telephone: val})}
               />
+              <Icon name={this.state.telephone.length < 10 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             <Item floatingLabel
                   style={styles.input}>
@@ -181,7 +187,8 @@ class Registration extends Component {
               />
             </Item>
             <Item floatingLabel
-                  error={this.state.password == "" ? true : false }
+                  error={this.state.password.length < 6 ? true : false }
+                  success={this.state.password.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Пароль*</Label>
               <Input
@@ -189,9 +196,11 @@ class Registration extends Component {
                 onChangeText={(val) => this.setState({password: val})}
                 secureTextEntry
               />
+              <Icon name={this.state.password.length < 6 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             <Item floatingLabel
-                  error={this.state.repeat_password == "" ? true : false }
+                  error={this.state.repeat_password.length < 6 ? true : false }
+                  success={this.state.repeat_password.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Повторіть пароль*</Label>
               <Input
@@ -199,6 +208,7 @@ class Registration extends Component {
                 onChangeText={(val) => this.setState({repeat_password: val})}
                 secureTextEntry
               />
+              <Icon name={this.state.repeat_password.length < 6 ? 'close-circle' : 'checkmark-circle'} />
             </Item>
             {this.isLoading()}
           </Body>
