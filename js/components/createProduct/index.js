@@ -13,6 +13,7 @@ import {
   Header,
   Body,
   Right,
+  Left,
   Title,
   Label,
   Spinner,
@@ -120,15 +121,15 @@ class CreateProduct extends Component {
     });
     return (
       <Container style={styles.container}>
-        <Header>
-          <Body>
-            <Title>{(this.props.session.username) ? this.props.session.username : 'Додати оголошення'}</Title>
-          </Body>
-          <Right>
+        <Header>          
+          <Left>
             <Button transparent onPress={this.props.actions.openDrawer}>
               <Icon active name="menu"/>
             </Button>
-          </Right>
+          </Left>
+          <Body>
+            <Title>{(this.props.session.username) ? this.props.session.username : 'Додати оголошення'}</Title>
+          </Body>
         </Header>
 
         <Content>

@@ -13,7 +13,8 @@ export function logInUser(credentials) {
           type: types.LOG_IN_SUCCESS,
           session: {
             id: response.id,
-            jwt: response.jwt
+            jwt: response.jwt,
+            avatar: response.avatar
           }
         });
         Actions.home();

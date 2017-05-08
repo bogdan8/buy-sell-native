@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Content, Text, ListItem} from 'native-base';
 import {Actions} from 'react-native-router-flux';
-import {View} from 'react-native';
+import {Content, Text, ListItem} from 'native-base';
+import {View, Image} from 'react-native';
 
 import * as drawerActions from '../../actions/drawer';
 import * as sessionActions from '../../actions/session';
@@ -34,9 +34,23 @@ class SideBar extends Component {
     }
   }
 
+  image() {
+    if(this.props.session.avatar){
+      return <Image
+              style={{width: 150, height: 150, borderRadius: 100}}
+              source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}`}}
+            />
+    }else{
+      return <Text style={styles.menuTitle}> FShop </Text>
+    }
+  }
+
   render() {
     return (
       <Content style={styles.sidebar}>
+        <View style={styles.menuImageBlock}>
+          {this.image()}
+        </View>
         <ListItem button onPress={() => { Actions.home(); this.props.actions.closeDrawer(); }}>
           <Text>Головна</Text>
         </ListItem>

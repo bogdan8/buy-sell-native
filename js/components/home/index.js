@@ -110,14 +110,14 @@ class Home extends Component {
          </View>
         </Modal>
         <Header>
-          <Body>
-          <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
-          </Body>
-          <Right>
+          <Left>
             <Button transparent onPress={this.props.actions.openDrawer}>
               <Icon active name="menu"/>
             </Button>
-          </Right>
+          </Left>
+          <Body>
+            <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
+          </Body>
         </Header>
         <Content>
           {products}

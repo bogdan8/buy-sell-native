@@ -13,6 +13,7 @@ import {
   Header,
   Body,
   Right,
+  Left,
   Title,
   Label,
   Spinner
@@ -69,15 +70,14 @@ class SignIn extends Component {
     return (
       <Container style={styles.container}>
         <Header>
-          <Body>
-          <Title>Вхід</Title>
-          </Body>
-
-          <Right>
+          <Left>
             <Button transparent onPress={this.props.actions.openDrawer}>
               <Icon active name="menu"/>
             </Button>
-          </Right>
+          </Left>
+          <Body>
+            <Title>Вхід</Title>
+          </Body>
         </Header>
 
         <Content>
