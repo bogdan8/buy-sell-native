@@ -46,18 +46,19 @@ class CreateProduct extends Component {
   }
 
   onCreateProductPressed() {
-    if (this.state.text === "" || this.state.price === "" ) {
+    const {text, price, image} = this.state; 
+    if (text.length < 10 || price.length < 1 ) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
-      if (this.state.category_id === "") {
+      if (category_id === "") {
         showToast('Ви невибрали категорію', 'warning');
       }else{
         let paramsProduct = {
-          text: this.state.text,
+          text: text,
           user_id: this.props.session.id,
-          category_id: this.state.category_id,
-          price: this.state.price,
-          image: this.state.image,
+          category_id: category_id,
+          price: price,
+          image: image,
         };
         this.setState({
           loading: true
@@ -119,6 +120,8 @@ class CreateProduct extends Component {
     const categories = this.props.categories.map((category, index) => {
       return <Item key={index} label={category.name} value={category.id} />
     });
+    const { text, price, category_id, imageSource } = this.state;
+    const { session } = this.props;
     return (
       <Container style={styles.container}>
         <Header>          
@@ -128,7 +131,7 @@ class CreateProduct extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>{(this.props.session.username) ? this.props.session.username : 'Додати оголошення'}</Title>
+            <Title>{(session.username) ? session.username : 'Додати оголошення'}</Title>
           </Body>
         </Header>
 
@@ -136,9 +139,9 @@ class CreateProduct extends Component {
           <Body style={styles.bg}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View>
-                { this.state.imageSource === null ?
+                { imageSource === null ?
                   <View style={styles.imageContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
-                  <Image style={styles.image} source={this.state.imageSource} />
+                  <Image style={styles.image} source={imageSource} />
                 }
               </View>
             </TouchableOpacity>
@@ -149,25 +152,25 @@ class CreateProduct extends Component {
             iosHeader="Виберіть категорію"
             mode="dialog"
             prompt="Виберіть категорію"
-            selectedValue={this.state.category_id}
+            selectedValue={category_id}
             onValueChange={(val) => this.setState({category_id: val})}>
             {categories}
           </Picker>
           <Body style={styles.bg}>
             <Item floatingLabel
-                  error={this.state.text.length < 10 ? true : false }
-                  success={this.state.text.length < 10 ? false : true }
+                  error={text.length < 10 && text != "" ? true : false }
+                  success={text.length < 10 ? false : true }
                   style={styles.input}>
               <Label>Опис*</Label>
               <Input 
               multiline={true}
               onChangeText={(val) => this.setState({text: val})}
               />
-              <Icon name={this.state.text.length < 10 ? 'close-circle' : 'checkmark-circle'} />
+              { text != "" ? <Icon name={text.length < 10 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
-                  error={this.state.price.length < 1 ? true : false }
-                  success={this.state.price.length < 1 ? false : true }
+                  error={price.length < 1 && price != "" ? true : false }
+                  success={price.length < 1 ? false : true }
                   style={styles.input}>
               <Label>Ціна (грн)*</Label>
               <Input 
@@ -175,7 +178,7 @@ class CreateProduct extends Component {
               maxLength={5}
               onChangeText={(val) => this.setState({price: val})}
               />
-              <Icon name={this.state.price.length < 1 ? 'close-circle' : 'checkmark-circle'} />
+              { price != "" ? <Icon name={price.length < 1 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             {this.isLoading()}
           </Body>

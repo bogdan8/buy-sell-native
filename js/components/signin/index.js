@@ -38,7 +38,9 @@ class SignIn extends Component {
   }
 
   onLoginPressed() {
-    if (this.state.email != "" && this.state.password != "") {
+    if (this.state.email.length < 6 || this.state.password.length < 6) {
+      showToast('Ви нічого неввели', 'warning');
+    } else {
       let credentials = {
         email: this.state.email,
         password: this.state.password
@@ -51,8 +53,6 @@ class SignIn extends Component {
           loading: false
         })
       });
-    } else {
-      showToast('Ви нічого неввели', 'warning');
     }
   }
 
@@ -67,6 +67,7 @@ class SignIn extends Component {
   }
 
   render() {
+    const { email, password } = this.state;
     return (
       <Container style={styles.container}>
         <Header>
@@ -83,23 +84,23 @@ class SignIn extends Component {
         <Content>
           <View style={styles.bg}>
             <Item floatingLabel
-                  error={this.state.email.length < 6 ? true : false }
-                  success={this.state.email.length < 6 ? false : true }
+                  error={email.length < 6 && email != "" ? true : false }
+                  success={email.length < 6 ? false : true }
                   style={styles.input}>
-              <Label>Email</Label>
+              <Label>Email *</Label>
               <Input onChangeText={(text) => this.setState({email: text})}/>
-              <Icon name={this.state.email.length < 6 ? 'close-circle' : 'checkmark-circle'} />
+              { email != "" ? <Icon name={email.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
-                  error={this.state.password.length < 6 ? true : false }
-                  success={this.state.password.length < 6 ? false : true }
+                  error={password.length < 6 && password != "" ? true : false }
+                  success={password.length < 6 ? false : true }
                   style={styles.input}>
-              <Label>Пароль</Label>
+              <Label>Пароль *</Label>
               <Input
                 onChangeText={(text) => this.setState({password: text})}
                 secureTextEntry
               />
-              <Icon name={this.state.password.length < 6 ? 'close-circle' : 'checkmark-circle'} />
+              { password != "" ? <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             {this.isLoading()}
           </View>

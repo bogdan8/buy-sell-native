@@ -47,19 +47,20 @@ class Registration extends Component {
   }
 
   onRegisterPressed() {
-    if (this.state.email == "" || this.state.username == "" || this.state.password == "" || this.state.telephone == "") {
+    const {email, username, password, telephone, repeat_password} = this.state;
+    if (email.length < 6 || username.length < 3 || password.length < 6 || telephone.length < 10) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
-      if (this.state.password != this.state.repeat_password) {
+      if (password != repeat_password) {
         showToast('Паролі незбігаються', 'danger');
       } else {
         let paramsUser = {
-          avatar: this.state.avatar,
-          username: this.state.username,
-          email: this.state.email,
-          telephone: this.state.telephone,
-          location: this.state.location,
-          password: this.state.password
+          avatar: avatar,
+          username: username,
+          email: email,
+          telephone: telephone,
+          location: location,
+          password: password
         };
         this.setState({
           loading: true
@@ -118,6 +119,7 @@ class Registration extends Component {
   }
 
   render() {
+    const {email, username, password, telephone, repeat_password, avatarSource} = this.state;
     return (
       <Container style={styles.container}>
         <Header>
@@ -135,26 +137,26 @@ class Registration extends Component {
           <Body style={styles.bg}>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View>
-                { this.state.avatarSource === null ?
+                { avatarSource === null ?
                   <View style={styles.avatarContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
-                  <Image style={styles.avatar} source={this.state.avatarSource} />
+                  <Image style={styles.avatar} source={avatarSource} />
                 }
               </View>
             </TouchableOpacity>
             <Item floatingLabel
-                  error={this.state.username.length < 3 ? true : false }
-                  success={this.state.username.length < 3 ? false : true }
+                  error={username.length < 3 && username != "" ? true : false }
+                  success={username.length < 3 ? false : true }
                   style={styles.input}>
               <Label>{"Ім'я*"}</Label>
               <Input  
                 returnKeyType="next"
                 onChangeText={(val) => this.setState({username: val})}
               />
-              <Icon name={this.state.username.length < 3 ? 'close-circle' : 'checkmark-circle'} />
+              {username != "" ? <Icon name={username.length < 3 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
-                  error={this.state.email.length < 6 ? true : false }
-                  success={this.state.email.length < 6 ? false : true }
+                  error={email.length < 6 && email != "" ? true : false }
+                  success={email.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Електрона пошта*</Label>
               <Input 
@@ -162,11 +164,11 @@ class Registration extends Component {
                 keyboardType='email-address'
                 onChangeText={(val) => this.setState({email: val})}
               />
-              <Icon name={this.state.email.length < 5 ? 'close-circle' : 'checkmark-circle'} />
+              {email != "" ? <Icon name={email.length < 5 ? 'close-circle' : 'checkmark-circle'} /> : ""}
             </Item>
             <Item floatingLabel
-                  error={this.state.telephone.length < 10 ? true : false }
-                  success={this.state.telephone.length < 10 ? false : true }
+                  error={telephone.length < 10 && telephone != "" ? true : false }
+                  success={telephone.length < 10 ? false : true }
                   style={styles.input}>
               <Label>Телефон*</Label>
               <Input
@@ -175,7 +177,7 @@ class Registration extends Component {
                 maxLength={10}
                 onChangeText={(val) => this.setState({telephone: val})}
               />
-              <Icon name={this.state.telephone.length < 10 ? 'close-circle' : 'checkmark-circle'} />
+              { telephone != "" ? <Icon name={telephone.length < 10 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
                   style={styles.input}>
@@ -187,8 +189,8 @@ class Registration extends Component {
               />
             </Item>
             <Item floatingLabel
-                  error={this.state.password.length < 6 ? true : false }
-                  success={this.state.password.length < 6 ? false : true }
+                  error={password.length < 6 && password != "" ? true : false }
+                  success={password.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Пароль*</Label>
               <Input
@@ -196,11 +198,11 @@ class Registration extends Component {
                 onChangeText={(val) => this.setState({password: val})}
                 secureTextEntry
               />
-              <Icon name={this.state.password.length < 6 ? 'close-circle' : 'checkmark-circle'} />
+              { password != "" ? <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
-                  error={this.state.repeat_password.length < 6 ? true : false }
-                  success={this.state.repeat_password.length < 6 ? false : true }
+                  error={repeat_password.length < 6 && repeat_password != "" ? true : false }
+                  success={repeat_password.length < 6 ? false : true }
                   style={styles.input}>
               <Label>Повторіть пароль*</Label>
               <Input
@@ -208,7 +210,7 @@ class Registration extends Component {
                 onChangeText={(val) => this.setState({repeat_password: val})}
                 secureTextEntry
               />
-              <Icon name={this.state.repeat_password.length < 6 ? 'close-circle' : 'checkmark-circle'} />
+              {repeat_password != "" ? <Icon name={repeat_password.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             {this.isLoading()}
           </Body>
