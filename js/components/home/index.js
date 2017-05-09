@@ -43,7 +43,7 @@ class Home extends Component {
 
   render() {
     const products = this.props.products.map((product, index) => {
-      let active = product.prepaid_products.length > 0 ? 'rgba(255,153,130,.74)' : '#FFFFFF';
+      let active = product.prepaid_products.length > 0 ? '#FDF0DD' : '#FFFFFF';
       return <ListItem avatar 
               key={index}  
               onPress={() => Actions.cartProduct({product}) }

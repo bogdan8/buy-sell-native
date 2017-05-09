@@ -37,24 +37,33 @@ class SideBar extends Component {
   image() {
     if(this.props.session.avatar){
       return <Image
-              style={{width: 150, height: 150, borderRadius: 100}}
+              style={{width: 80, height: 80, borderRadius: 100}}
               source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}`}}
             />
     }else{
-      return <Text style={styles.menuTitle}> FShop </Text>
+      return <View style={styles.munuTitleBlock}><Text style={styles.menuTitle}> FShop </Text></View>
     }
   }
 
   render() {
     return (
       <Content style={styles.sidebar}>
-        <View style={styles.menuImageBlock}>
-          {this.image()}
+        <View style={styles.menuHeaderBlock}>
+          <View>
+            {this.image()}
+          </View>
+          <View style={styles.menuDescriptionBlock}>
+            <Text style={styles.menuDescription}>
+              Привіт користувач!
+            </Text>
+          </View>
         </View>
-        <ListItem button onPress={() => { Actions.home(); this.props.actions.closeDrawer(); }}>
-          <Text>Головна</Text>
-        </ListItem>
-        {this.menu()}
+        <View style={styles.menuBlock}>
+          <ListItem button onPress={() => { Actions.home(); this.props.actions.closeDrawer(); }}>
+            <Text>Головна</Text>
+          </ListItem> 
+          {this.menu()}
+        </View>  
       </Content>
     );
   }
