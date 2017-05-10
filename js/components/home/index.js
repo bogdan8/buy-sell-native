@@ -118,6 +118,11 @@ class Home extends Component {
           <Body>
             <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
           </Body>
+           <Right>
+            <Button transparent onPress={this.props.actions.allProducts}>
+              <Icon active name="refresh"/>
+            </Button>
+          </Right>
         </Header>
         <Content>
           {products}
