@@ -48,28 +48,33 @@ class Registration extends Component {
 
   onRegisterPressed() {
     const {email, username, password, telephone, repeat_password, avatar, location} = this.state;
-    if (email.length < 6 || username.length < 3 || password.length < 6 || telephone.length < 10) {
+    const re =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (username.length < 3 || password.length < 6 || telephone.length < 10) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
-      if (password != repeat_password) {
-        showToast('Паролі незбігаються', 'danger');
+      if (!re.test(email)) {
+        showToast("Невірний формат 'email'", 'warning');
       } else {
-        let paramsUser = {
-          avatar: avatar,
-          username: username,
-          email: email,
-          telephone: telephone,
-          location: location,
-          password: password
-        };
-        this.setState({
-          loading: true
-        });
-        this.props.actions.addUser(paramsUser).then(() => {
+        if (password != repeat_password) {
+          showToast('Паролі незбігаються', 'danger');
+        } else {
+          let paramsUser = {
+            avatar: avatar,
+            username: username,
+            email: email,
+            telephone: telephone,
+            location: location,
+            password: password
+          };
           this.setState({
-            loading: false
-          })
-        });
+            loading: true
+          });
+          this.props.actions.addUser(paramsUser).then(() => {
+            this.setState({
+              loading: false
+            })
+          });
+        }
       }
     }
   }
@@ -120,6 +125,7 @@ class Registration extends Component {
 
   render() {
     const {email, username, password, telephone, repeat_password, avatarSource} = this.state;
+    const re =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return (
       <Container style={styles.container}>
         <Header>
@@ -155,8 +161,8 @@ class Registration extends Component {
               {username != "" ? <Icon name={username.length < 3 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
-                  error={email.length < 6 && email != "" ? true : false }
-                  success={email.length < 6 ? false : true }
+                  error={!re.test(email) && email != "" ? true : false }
+                  success={!re.test(email) ? false : true }
                   style={styles.input}>
               <Label>Електрона пошта*</Label>
               <Input 
@@ -164,7 +170,7 @@ class Registration extends Component {
                 keyboardType='email-address'
                 onChangeText={(val) => this.setState({email: val})}
               />
-              {email != "" ? <Icon name={email.length < 5 ? 'close-circle' : 'checkmark-circle'} /> : ""}
+              {email != "" ? <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'} /> : ""}
             </Item>
             <Item floatingLabel
                   error={telephone.length < 10 && telephone != "" ? true : false }
@@ -202,7 +208,7 @@ class Registration extends Component {
             </Item>
             <Item floatingLabel
                   error={repeat_password != password && repeat_password != "" ? true : false }
-                  success={repeat_password != password ? false : true }
+                  success={repeat_password == "" ? false : repeat_password != password ? false : true }
                   style={styles.input}>
               <Label>Повторіть пароль*</Label>
               <Input

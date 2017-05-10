@@ -38,8 +38,9 @@ class SignIn extends Component {
   }
 
   onLoginPressed() {
-    if (this.state.email.length < 6 || this.state.password.length < 6) {
-      showToast('Ви нічого неввели', 'warning');
+    const re =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(email)) {
+      showToast("Невірний формат 'email'", 'warning');
     } else {
       let credentials = {
         email: this.state.email,
@@ -68,6 +69,7 @@ class SignIn extends Component {
 
   render() {
     const { email, password } = this.state;
+    const re =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return (
       <Container style={styles.container}>
         <Header>
@@ -84,12 +86,12 @@ class SignIn extends Component {
         <Content>
           <View style={styles.bg}>
             <Item floatingLabel
-                  error={email.length < 6 && email != "" ? true : false }
-                  success={email.length < 6 ? false : true }
+                  error={!re.test(email) && email != "" ? true : false }
+                  success={!re.test(email) ? false : true }
                   style={styles.input}>
               <Label>Email *</Label>
               <Input onChangeText={(text) => this.setState({email: text})}/>
-              { email != "" ? <Icon name={email.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
+              { email != "" ? <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
                   error={password.length < 6 && password != "" ? true : false }
