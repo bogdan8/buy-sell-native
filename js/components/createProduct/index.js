@@ -47,27 +47,31 @@ class CreateProduct extends Component {
 
   onCreateProductPressed() {
     const {text, price, image, category_id} = this.state; 
-    if (text.length < 10 || price.length < 1 ) {
+    if (price.length < 1 ) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
-    } else {
-      if (category_id === "") {
-        showToast('Ви невибрали категорію', 'warning');
+    }else{
+      if (text.length < 10) {
+        showToast('Малий опис оголошення', 'warning');
       }else{
-        let paramsProduct = {
-          text: text,
-          user_id: this.props.session.id,
-          category_id: category_id,
-          price: price,
-          image: image,
-        };
-        this.setState({
-          loading: true
-        });
-        this.props.actions.addProduct(paramsProduct, this.props.session.jwt).then(() => {
+        if (category_id === "") {
+          showToast('Ви невибрали категорію', 'warning');
+        }else{
+          let paramsProduct = {
+            text: text,
+            user_id: this.props.session.id,
+            category_id: category_id,
+            price: price,
+            image: image,
+          };
           this.setState({
-            loading: false
-          })
-        });
+            loading: true
+          });
+          this.props.actions.addProduct(paramsProduct, this.props.session.jwt).then(() => {
+            this.setState({
+              loading: false
+            })
+          });
+        }
       }
     }
   }
