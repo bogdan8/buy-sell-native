@@ -201,8 +201,8 @@ class Registration extends Component {
               { password != "" ? <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             <Item floatingLabel
-                  error={repeat_password.length < 6 && repeat_password != "" ? true : false }
-                  success={repeat_password.length < 6 ? false : true }
+                  error={repeat_password != password && repeat_password != "" ? true : false }
+                  success={repeat_password != password ? false : true }
                   style={styles.input}>
               <Label>Повторіть пароль*</Label>
               <Input
@@ -210,7 +210,7 @@ class Registration extends Component {
                 onChangeText={(val) => this.setState({repeat_password: val})}
                 secureTextEntry
               />
-              {repeat_password != "" ? <Icon name={repeat_password.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
+              {repeat_password != "" ? <Icon name={repeat_password != password ? 'close-circle' : 'checkmark-circle'} /> : "" }
             </Item>
             {this.isLoading()}
           </Body>
