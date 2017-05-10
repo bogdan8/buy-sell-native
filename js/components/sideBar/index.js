@@ -37,7 +37,7 @@ class SideBar extends Component {
   image() {
     if(this.props.session.avatar){
       return <Image
-              style={{width: 80, height: 80, borderRadius: 100}}
+              style={{width: 110, height: 110, borderRadius: 100}}
               source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}`}}
             />
     }else{
@@ -46,18 +46,26 @@ class SideBar extends Component {
   }
 
   render() {
+    const avatar = this.props.session.avatar ? 
+                  `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}` :
+                  'http://www.whitetablegallery.org/src/share/default.jpg';
     return (
       <Content style={styles.sidebar}>
-        <View style={styles.menuHeaderBlock}>
-          <View>
-            {this.image()}
+        <Image
+          source={{uri: avatar}}
+          style={styles.menuHeaderBlockImage}
+        >
+          <View style={styles.menuHeaderBlock}>
+            <View>
+              {this.image()}
+            </View>
+            <View style={styles.menuDescriptionBlock}>
+              <Text style={styles.menuDescription}>
+                Привіт користувач!
+              </Text>
+            </View>
           </View>
-          <View style={styles.menuDescriptionBlock}>
-            <Text style={styles.menuDescription}>
-              Привіт користувач!
-            </Text>
-          </View>
-        </View>
+        </Image>
         <View style={styles.menuBlock}>
           <ListItem button onPress={() => { Actions.home(); this.props.actions.closeDrawer(); }}>
             <Text>Головна</Text>

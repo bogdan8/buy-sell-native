@@ -9,20 +9,26 @@ export default {
     paddingTop: 20,
     backgroundColor: '#fff',
   },
+  menuHeaderBlockImage: {
+    height: 200,
+  },
   menuHeaderBlock: {
     paddingTop: 10,
-    height: 100,
-    backgroundColor: '#FDDDF7',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    height: 200,
+    backgroundColor: '#ffffff',
+    opacity: 0.7,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   menuImage: {
   	backgroundColor: '#666666',
   },
   munuTitleBlock: {
     backgroundColor: '#666666',
-    width: 80,
-    height: 80,
+    width: 110,
+    height: 110,
+    marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
@@ -35,6 +41,6 @@ export default {
     alignItems: 'center',
   },
   menuDescription: {
-    fontSize: 14
+    fontSize: 16
   }
 };
