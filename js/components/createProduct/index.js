@@ -46,7 +46,7 @@ class CreateProduct extends Component {
   }
 
   onCreateProductPressed() {
-    const {text, price, image} = this.state; 
+    const {text, price, image, category_id} = this.state; 
     if (text.length < 10 || price.length < 1 ) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {

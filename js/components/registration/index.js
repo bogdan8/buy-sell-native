@@ -47,7 +47,7 @@ class Registration extends Component {
   }
 
   onRegisterPressed() {
-    const {email, username, password, telephone, repeat_password} = this.state;
+    const {email, username, password, telephone, repeat_password, avatar, location} = this.state;
     if (email.length < 6 || username.length < 3 || password.length < 6 || telephone.length < 10) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
     } else {
