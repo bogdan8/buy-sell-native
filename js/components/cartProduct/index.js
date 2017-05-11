@@ -65,7 +65,7 @@ class CartProduct extends Component {
             <CardItem>
               <Body style={{justifyContent: 'space-between', flexDirection: 'row'}}>
               <Button transparent textStyle={{color: '#87838B'}}>
-                <Icon name="logo-usd"/>
+                <Icon name="cash"/>
                 <Text> {product.price}.грн</Text>
               </Button>
               <Button transparent textStyle={{color: '#87838B'}}>
