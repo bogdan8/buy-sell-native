@@ -42,6 +42,7 @@ class Home extends Component {
   }
 
   render() {
+    const {choseCategory, modalVisible} = this.state;
     const products = this.props.products.map((product, index) => {
       let active = product.prepaid_products.length > 0 ? '#FDF0DD' : '#FFFFFF';
       return <ListItem avatar 
@@ -68,7 +69,7 @@ class Home extends Component {
               key={index}
               onPress={() => {
                 this.props.actions.fetchProductWithCategory(category.id);
-                this.setModalVisible(!this.state.modalVisible);
+                this.setModalVisible(!modalVisible);
                 this.setState({choseCategory: category.id})
               }}
               >
@@ -81,8 +82,8 @@ class Home extends Component {
       <Modal
           animationType={"fade"}
           transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => this.setModalVisible(!this.state.modalVisible)}>
+          visible={modalVisible}
+          onRequestClose={() => this.setModalVisible(!modalVisible)}>
          <View style={styles.modal}>
             <View style={styles.modalHeader}>
               <Text>
@@ -91,7 +92,7 @@ class Home extends Component {
                 Виберіть категорію
               </Text>
               <Text>
-                <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(!this.state.modalVisible)} />
+                <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(!modalVisible)} />
               </Text>
             </View>
             <Button
@@ -99,7 +100,7 @@ class Home extends Component {
               style={styles.modalList}
               onPress={() => {
                 this.props.actions.fetchProductWithCategory('0');
-                this.setModalVisible(!this.state.modalVisible);
+                this.setModalVisible(!modalVisible);
                 this.setState({choseCategory: '0'})
                 }}
             >
@@ -119,7 +120,10 @@ class Home extends Component {
             <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
           </Body>
            <Right>
-            <Button transparent onPress={this.props.actions.allProducts}>
+            <Button transparent onPress={() => {
+              this.props.actions.allProducts;
+              this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0")
+            }}>
               <Icon active name="refresh"/>
             </Button>
           </Right>
@@ -130,7 +134,7 @@ class Home extends Component {
         <Footer>
           <FooterTab>
             <Button onPress={() => {
-              this.setModalVisible(!this.state.modalVisible)
+              this.setModalVisible(!modalVisible)
             }}>
                 <Icon name="list" />
             </Button>
