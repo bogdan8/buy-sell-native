@@ -1,5 +1,4 @@
-import { Platform, Dimensions } from 'react-native';
-import _ from 'lodash';
+import {Platform, Dimensions} from 'react-native';
 
 import variable from './../variables/platform';
 
