@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 import _ from 'lodash';
 import headerTheme from './Header';
 import containerTheme from './Container'
@@ -196,17 +196,16 @@ export default (variables = variable) => {
 
     'NativeBase.PickerNB': {
       'NativeBase.Button': {
-        'NativeBase.Text': {
-        },
+        'NativeBase.Text': {},
       },
     },
 
     'NativeBase.Tab': {
-     ...tabTheme(variables),
+      ...tabTheme(variables),
     },
 
     'NativeBase.Segment': {
-     ...segmentTheme(variables),
+      ...segmentTheme(variables),
     },
 
     'NativeBase.STabs': {
@@ -231,8 +230,7 @@ export default (variables = variable) => {
     'NativeBase.Separator': {
       ...separatorTheme(variables),
     },
-    'NativeBase.Tabs': {
-    },
+    'NativeBase.Tabs': {},
     'NativeBase.Thumbnail': {
       '.square': {
         borderRadius: 0,
@@ -256,8 +254,6 @@ export default (variables = variable) => {
 
   const cssifyTheme = (grandparent, parent, parentKey) => {
     _.forEach(parent, (style, styleName) => {
-      // console.log('styleName', styleName);
-      // console.log('parentKey', parentKey);
       if (styleName.indexOf('.') === 0 && parentKey && parentKey.indexOf('.') === 0) {
         if (grandparent) {
           if (!grandparent[styleName]) {

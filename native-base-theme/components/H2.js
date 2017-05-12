@@ -1,15 +1,13 @@
-import { Platform } from 'react-native';
-import _ from 'lodash';
+import {Platform} from 'react-native';
 
 import variable from './../variables/platform';
 
 export default (variables = variable) => {
   const h2Theme = {
-      color: variables.textColor,
-      fontSize: variables.fontSizeH2,
-      lineHeight: variables.lineHeightH2,
+    color: variables.textColor,
+    fontSize: variables.fontSizeH2,
+    lineHeight: variables.lineHeightH2,
   };
-
 
   return h2Theme;
 };

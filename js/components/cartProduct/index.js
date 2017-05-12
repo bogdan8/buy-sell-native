@@ -11,7 +11,6 @@ import {
   Button,
   Icon,
   Body,
-  Right,
   Card,
   CardItem,
   Left,
@@ -24,7 +23,8 @@ import styles from './styles';
 
 class CartProduct extends Component {
   render() {
-  	const {product} = this.props;
+    const {product} = this.props;
+
     return (
       <Container style={styles.container}>
         <Header>
@@ -34,7 +34,7 @@ class CartProduct extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>{product.user.username}</Title>
+          <Title>{product.user.username}</Title>
           </Body>
         </Header>
         <Content>
@@ -70,7 +70,7 @@ class CartProduct extends Component {
               </Button>
               <Button transparent textStyle={{color: '#87838B'}}>
                 <Icon name="clock"/>
-                <Text> {product.updated_at.substring(0,10)}</Text>
+                <Text> {product.updated_at.substring(0, 10)}</Text>
               </Button>
               </Body>
             </CardItem>

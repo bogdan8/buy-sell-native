@@ -1,5 +1,4 @@
-import { Platform } from 'react-native';
-import _ from 'lodash';
+import {Platform} from 'react-native';
 
 import variable from './../variables/platform';
 
@@ -19,7 +18,7 @@ export default (variables = variable) => {
     },
     'NativeBase.Icon': {
       color: variables.topTabBarTextColor,
-      fontSize: (platform==='ios') ? 26 : undefined
+      fontSize: (platform === 'ios') ? 26 : undefined
     },
     '.active': {
       'NativeBase.Text': {
@@ -31,7 +30,6 @@ export default (variables = variable) => {
       },
     }
   };
-
 
   return tabHeadingTheme;
 };

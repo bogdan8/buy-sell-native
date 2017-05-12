@@ -12,7 +12,6 @@ import {
   Text,
   Header,
   Body,
-  Right,
   Left,
   Title,
   Label,
@@ -32,41 +31,38 @@ import styles from './styles';
 
 class CreateProduct extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: "",
-      category_id: props.categories[0]['id'],
-      price: "",
-      loading: false,
-      imageSource: null,
-      image: new Image,
-    }
-  }
+  state = {
+    text: "",
+    category_id: this.props.categories[0]['id'],
+    price: "",
+    loading: false,
+    imageSource: null,
+    image: new Image,
+  };
 
   onCreateProductPressed() {
-    const {text, price, image, category_id} = this.state; 
-    if (price.length < 1 ) {
+    const {text, price, image, category_id} = this.state;
+    const {session} = this.props;
+    if (price.length < 1) {
       showToast('Ви незаповнели обов\'язкові поля', 'warning');
-    }else{
+    } else {
       if (text.length < 10) {
         showToast('Малий опис оголошення', 'warning');
-      }else{
+      } else {
         if (category_id === "") {
           showToast('Ви невибрали категорію', 'warning');
-        }else{
+        } else {
           let paramsProduct = {
-            text: text,
-            user_id: this.props.session.id,
+            text,
+            user_id: session.id,
             category_id: category_id,
-            price: price,
-            image: image,
+            price,
+            image,
           };
           this.setState({
             loading: true
           });
-          this.props.actions.addProduct(paramsProduct, this.props.session.jwt).then(() => {
+          this.props.actions.addProduct(paramsProduct, session.jwt).then(() => {
             this.setState({
               loading: false
             })
@@ -79,7 +75,7 @@ class CreateProduct extends Component {
   isLoading() {
     if (!this.state.loading) {
       return <Button style={styles.btn} onPress={this.onCreateProductPressed.bind(this)}>
-        <Text>Додати</Text>
+        <Text> Додати </Text>
       </Button>
     } else {
       return <Spinner color='blue'/>
@@ -110,7 +106,7 @@ class CreateProduct extends Component {
         showToast(response.customButton, 'danger');
       }
       else {
-        let source = { uri: response.uri };
+        let source = {uri: response.uri};
 
         this.setState({
           imageSource: source,
@@ -122,33 +118,35 @@ class CreateProduct extends Component {
 
   render() {
     const categories = this.props.categories.map((category, index) => {
-      return <Item key={index} label={category.name} value={category.id} />
+      return <Item key={index} label={category.name} value={category.id}/>
     });
-    const { text, price, category_id, imageSource } = this.state;
-    const { session } = this.props;
+    const {text, price, category_id, imageSource} = this.state;
+    const {session} = this.props;
+
     return (
       <Container style={styles.container}>
-        <Header>          
+        <Header>
           <Left>
             <Button transparent onPress={this.props.actions.openDrawer}>
               <Icon active name="menu"/>
             </Button>
           </Left>
           <Body>
-            <Title>{(session.username) ? session.username : 'Додати оголошення'}</Title>
+          <Title>{(session.username) ? session.username : 'Додати оголошення'}</Title>
           </Body>
         </Header>
 
         <Content>
           <Body style={styles.bg}>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View>
-                { imageSource === null ?
-                  <View style={styles.imageContainer}><Text><Icon style={{color: '#fff'}} name="cloud-upload"/></Text></View> :
-                  <Image style={styles.image} source={imageSource} />
-                }
-              </View>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+            <View>
+              { imageSource === null ?
+                <View style={styles.imageContainer}><Text><Icon style={{color: '#fff'}}
+                                                                name="cloud-upload"/></Text></View> :
+                <Image style={styles.image} source={imageSource}/>
+              }
+            </View>
+          </TouchableOpacity>
           </Body>
           <Label style={styles.pickerTitle}>Категорія*</Label>
           <Picker
@@ -161,30 +159,30 @@ class CreateProduct extends Component {
             {categories}
           </Picker>
           <Body style={styles.bg}>
-            <Item floatingLabel
-                  error={text.length < 10 && text != "" ? true : false }
-                  success={text.length < 10 ? false : true }
-                  style={styles.input}>
-              <Label>Опис*</Label>
-              <Input 
+          <Item floatingLabel
+                error={text.length < 10 && text != "" }
+                success={text.length>=10 }
+                style={styles.input}>
+            <Label>Опис*</Label>
+            <Input
               multiline={true}
               onChangeText={(val) => this.setState({text: val})}
-              />
-              { text != "" ? <Icon name={text.length < 10 ? 'close-circle' : 'checkmark-circle'} /> : "" }
-            </Item>
-            <Item floatingLabel
-                  error={price.length < 1 && price != "" ? true : false }
-                  success={price.length < 1 ? false : true }
-                  style={styles.input}>
-              <Label>Ціна (грн)*</Label>
-              <Input 
+            />
+            { text != "" ? <Icon name={text.length < 10 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+          </Item>
+          <Item floatingLabel
+                error={price.length < 1 && price != "" }
+                success={price.length>=1 }
+                style={styles.input}>
+            <Label>Ціна (грн)*</Label>
+            <Input
               keyboardType='numeric'
               maxLength={5}
               onChangeText={(val) => this.setState({price: val})}
-              />
-              { price != "" ? <Icon name={price.length < 1 ? 'close-circle' : 'checkmark-circle'} /> : "" }
-            </Item>
-            {this.isLoading()}
+            />
+            { price != "" ? <Icon name={price.length < 1 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+          </Item>
+          {this.isLoading()}
           </Body>
         </Content>
       </Container>
@@ -194,7 +192,7 @@ class CreateProduct extends Component {
 
 function mapStateToProps(state) {
   return {
-  	categories: state.categories,
+    categories: state.categories,
     session: state.session
   }
 }
