@@ -22,7 +22,7 @@ export default {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
   },
   modal: {
-    margin: 20, 
+    margin: 20,
     backgroundColor: "white",
     borderRadius: 3,
     padding: 10
