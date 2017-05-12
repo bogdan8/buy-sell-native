@@ -1,6 +1,6 @@
 class SessionApi {
   static async login(credentials) {
-    let response = await fetch('http://firtkashop.herokuapp.com/user_token.json', {
+    let response = await fetch('http://fshop.ustk.in.ua/user_token.json', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

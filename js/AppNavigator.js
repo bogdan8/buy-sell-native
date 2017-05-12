@@ -1,17 +1,20 @@
+import React, {Component} from 'react';
+import {StatusBar} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {Drawer} from 'native-base';
+import {Router, Scene} from 'react-native-router-flux';
 
-import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
-import { connect } from 'react-redux';
-import { Drawer } from 'native-base';
-import { Router, Scene } from 'react-native-router-flux';
+import * as drawerActions from './actions/drawer';
+import * as categoryActions from './actions/category';
 
-import { closeDrawer } from './actions/drawer';
-
-import Login from './components/login/';
+import SignIn from './components/signin/';
+import Registration from './components/registration/';
 import Home from './components/home/';
+import CreateProduct from './components/createProduct/';
+import CartProduct from './components/cartProduct/';
 import SideBar from './components/sideBar';
-import { statusBarColor } from './themes/base-theme';
-
+import {statusBarColor} from './themes/base-theme';
 
 const RouterWithRedux = connect()(Router);
 
@@ -20,8 +23,11 @@ class AppNavigator extends Component {
   static propTypes = {
     drawerState: React.PropTypes.string,
     closeDrawer: React.PropTypes.func,
-  }
+  };
 
+  componentWillMount(){
+    this.props.actions.allCategories();
+  }
 
   componentDidUpdate() {
     if (this.props.drawerState === 'opened') {
@@ -40,18 +46,7 @@ class AppNavigator extends Component {
 
   closeDrawer() {
     if (this.props.drawerState === 'opened') {
-      this.props.closeDrawer();
-    }
-  }
-
-  _renderScene(props) { // eslint-disable-line class-methods-use-this
-    switch (props.scene.route.key) {
-      case 'login':
-        return <Login />;
-      case 'home':
-        return <Home />;
-      default :
-        return <Login />;
+      this.props.actions.closeDrawer();
     }
   }
 
@@ -90,8 +85,11 @@ class AppNavigator extends Component {
         />
         <RouterWithRedux>
           <Scene key="root">
-            <Scene key="login" component={Login} />
-            <Scene key="home" component={Home} hideNavBar initial />
+            <Scene key="signin" panHandlers={null} component={SignIn}/>
+            <Scene key="registration" panHandlers={null} component={Registration}/>
+            <Scene key="createProduct" panHandlers={null} component={CreateProduct}/>
+            <Scene key="cartProduct" component={CartProduct}/>
+            <Scene key="home" component={Home} panHandlers={null} hideNavBar initial />
           </Scene>
         </RouterWithRedux>
       </Drawer>
@@ -99,15 +97,16 @@ class AppNavigator extends Component {
   }
 }
 
-function bindAction(dispatch) {
+function mapStateToProps(state) {
   return {
-    closeDrawer: () => dispatch(closeDrawer()),
+    drawerState: state.drawer.drawerState
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({...drawerActions, ...categoryActions}, dispatch)
   };
 }
 
-const mapStateToProps = state => ({
-  drawerState: state.drawer.drawerState,
-  navigation: state.cardNavigation,
-});
-
-export default connect(mapStateToProps, bindAction)(AppNavigator);
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator);

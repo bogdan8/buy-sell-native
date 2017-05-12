@@ -1,34 +1,24 @@
 import {Actions} from 'react-native-router-flux';
-import type {Action} from './types';
+import * as types from './types';
 import sessionApi from '../api/SessionApi';
+import {showToast} from '../helpers/helpers';
 
-export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
-export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
-export const LOG_OUT = 'LOG_OUT';
-
-export function message(message, level) {
-  return {
-    type: ADD_NOTIFICATION,
-    message: message,
-    level: level
-  }
-}
-
-export function logInUser(credentials): Action {
+export function logInUser(credentials) {
   return function (dispatch) {
     return sessionApi.login(credentials).then(response => {
       if (response.status == '404') {
-        dispatch(message('Невірні данні', 'error'));
+        showToast('Невірні данні', 'danger');
       } else {
         dispatch({
-          type: LOG_IN_SUCCESS,
+          type: types.LOG_IN_SUCCESS,
           session: {
             id: response.id,
-            jwt: response.jwt
+            jwt: response.jwt,
+            avatar: response.avatar
           }
         });
-        dispatch(message('Ви ввійшли', 'success'));
-        Actions.products()
+        Actions.home();
+        showToast('Ви ввійшли', 'success');
       }
     }).catch(error => {
       throw(error);
@@ -36,16 +26,16 @@ export function logInUser(credentials): Action {
   };
 }
 
-export function signOutUser(): Action{
+export function signOutUser() {
   return function (dispatch) {
     dispatch({
-      type: LOG_OUT,
+      type: types.LOG_OUT,
       session: {
         id: '',
         jwt: ''
       }
     });
-    dispatch(message('Ви вийшли', 'success'));
-    Actions.products()
+    Actions.home();
+    showToast('Ви вийшли', 'success');
   }
 }
