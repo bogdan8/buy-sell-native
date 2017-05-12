@@ -29,7 +29,8 @@ import styles from './styles';
 class Home extends Component {
   state = {
     modalVisible: false,
-    choseCategory: ''
+    choseCategory: '',
+    per: 2
   };
 
   setModalVisible(visible) {
@@ -37,11 +38,11 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    this.props.actions.allProducts();
+    this.props.actions.allProducts(this.state.per);
   }
 
   render() {
-    const {choseCategory, modalVisible} = this.state;
+    const {choseCategory, modalVisible, per} = this.state;
     const products = this.props.products.map((product, index) => {
       let active = product.prepaid_products.length > 0 ? '#FDF0DD' : '#FFFFFF';
       return <ListItem avatar
@@ -67,7 +68,7 @@ class Home extends Component {
         style={styles.modalList}
         key={index}
         onPress={() => {
-                this.props.actions.fetchProductWithCategory(category.id);
+                this.props.actions.fetchProductWithCategory(category.id, per);
                 this.setModalVisible(!modalVisible);
                 this.setState({choseCategory: category.id})
               }}>
@@ -97,7 +98,7 @@ class Home extends Component {
               transparent
               style={styles.modalList}
               onPress={() => {
-                this.props.actions.fetchProductWithCategory('0');
+                this.props.actions.fetchProductWithCategory('0', per);
                 this.setModalVisible(!modalVisible);
                 this.setState({choseCategory: '0'})
                 }}>
@@ -119,7 +120,7 @@ class Home extends Component {
           <Right>
             <Button transparent onPress={() => {
               this.props.actions.allProducts;
-              this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0")
+              this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0", per)
             }}>
               <Icon active name="refresh"/>
             </Button>
@@ -127,6 +128,12 @@ class Home extends Component {
         </Header>
         <Content>
           {products}
+          <View style={styles.paginationBlock}>
+            <Icon style={styles.paginationBtn} name="arrow-down" onPress={() => {
+              this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0", per + 2);
+              this.setState({per: per + 2});
+            }}/>
+          </View>
         </Content>
         <Footer>
           <FooterTab>

@@ -1,7 +1,7 @@
 class ProductApi {
   /* Get all products */
-  static async getAllProducts() {
-    let response = await fetch('http://fshop.ustk.in.ua/products/1.json?per=100', {
+  static async getAllProducts(per) {
+    let response = await fetch(`http://fshop.ustk.in.ua/products/1.json?per=${per}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -13,8 +13,8 @@ class ProductApi {
   }
 
   /* Get all product with chose category */
-  static async getProductWithCategory(category_id) {
-    let response = await fetch(`http://fshop.ustk.in.ua/products/1.json?category_id=${category_id}`, {
+  static async getProductWithCategory(category_id, per) {
+    let response = await fetch(`http://fshop.ustk.in.ua/products/1.json?category_id=${category_id}&per=${per}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

@@ -41,5 +41,13 @@ export default {
   },
   closeBtn: {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
+  },
+  paginationBlock: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+  },
+  paginationBtn: {
+    color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
   }
 };

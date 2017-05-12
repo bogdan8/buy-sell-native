@@ -4,9 +4,9 @@ import productApi from '../api/ProductApi';
 import {showToast} from '../helpers/helpers';
 
 /* Get all products */
-export function allProducts() {
+export function allProducts(per) {
   return function (dispatch) {
-    return productApi.getAllProducts().then(response => {
+    return productApi.getAllProducts(per).then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
         products: JSON.parse(response)
@@ -18,9 +18,9 @@ export function allProducts() {
 }
 
 /* Get all product with chose category */
-export function fetchProductWithCategory(category_id) {
+export function fetchProductWithCategory(category_id, per) {
   return function (dispatch) {
-    return productApi.getProductWithCategory(category_id).then(response => {
+    return productApi.getProductWithCategory(category_id, per).then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
         products: JSON.parse(response)
