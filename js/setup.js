@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-
 import {StyleProvider} from 'native-base';
+
 import AppNavigator from './AppNavigator';
 import getTheme from '../native-base-theme/components';
 import platform from '../native-base-theme/variables/platform';

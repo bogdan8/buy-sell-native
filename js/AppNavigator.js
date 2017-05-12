@@ -25,7 +25,7 @@ class AppNavigator extends Component {
     closeDrawer: React.PropTypes.func,
   };
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.actions.allCategories();
   }
 
@@ -77,19 +77,17 @@ class AppNavigator extends Component {
             },
           };
         }}
-        negotiatePan
-      >
+        negotiatePan>
         <StatusBar
           backgroundColor={statusBarColor}
-          barStyle="default"
-        />
+          barStyle="default"/>
         <RouterWithRedux>
           <Scene key="root">
             <Scene key="signin" panHandlers={null} component={SignIn}/>
             <Scene key="registration" panHandlers={null} component={Registration}/>
             <Scene key="createProduct" panHandlers={null} component={CreateProduct}/>
             <Scene key="cartProduct" component={CartProduct}/>
-            <Scene key="home" component={Home} panHandlers={null} hideNavBar initial />
+            <Scene key="home" component={Home} panHandlers={null} hideNavBar initial/>
           </Scene>
         </RouterWithRedux>
       </Drawer>
