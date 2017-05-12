@@ -1,8 +1,3 @@
-export const PUSH_NEW_ROUTE = 'PUSH_NEW_ROUTE';
-export const POP_ROUTE = 'POP_ROUTE';
-export const POP_TO_ROUTE = 'POP_TO_ROUTE';
-export const REPLACE_ROUTE = 'REPLACE_ROUTE';
-export const REPLACE_OR_PUSH_ROUTE = 'REPLACE_OR_PUSH_ROUTE';
 export const OPEN_DRAWER = 'OPEN_DRAWER';
 export const CLOSE_DRAWER = 'CLOSE_DRAWER';
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES';
@@ -10,4 +5,3 @@ export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_OUT = 'LOG_OUT';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
-export const ADD_PRODUCT = 'ADD_PRODUCT';

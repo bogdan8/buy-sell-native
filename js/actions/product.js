@@ -35,10 +35,10 @@ export function fetchProductWithCategory(category_id) {
 export function addProduct(paramsProduct, jwt) {
   return (dispatch) => {
     return productApi.createProduct(paramsProduct, jwt).then(response => {
-      if(response.message.type == 'success'){
+      if (response.message.type == 'success') {
         Actions.home();
       }
-      showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type );
+      showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type);
     }).catch(error => {
       throw(error);
     });
