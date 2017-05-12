@@ -14,7 +14,8 @@ export function logInUser(credentials) {
           session: {
             id: response.id,
             jwt: response.jwt,
-            avatar: response.avatar
+            avatar: response.avatar,
+            username: response.username
           }
         });
         Actions.home();
@@ -32,7 +33,9 @@ export function signOutUser() {
       type: types.LOG_OUT,
       session: {
         id: '',
-        jwt: ''
+        jwt: '',
+        avatar: '',
+        username: ''
       }
     });
     Actions.home();

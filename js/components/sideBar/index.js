@@ -65,7 +65,7 @@ class SideBar extends Component {
             </View>
             <View style={styles.menuDescriptionBlock}>
               <Text style={styles.menuDescription}>
-                Привіт користувач!
+                Привіт {session.username ? session.username : 'користувач' }!
               </Text>
             </View>
           </View>
