@@ -9,7 +9,7 @@ export function allProducts() {
     return productApi.getAllProducts().then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
-        products: JSON.parse(response)
+        products: response
       });
     }).catch(error => {
       throw(error);

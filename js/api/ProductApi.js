@@ -9,7 +9,7 @@ class ProductApi {
       }
     });
     
-    return response = await response.text()
+    return response = await response.json()
   }
 
   /* Get all product with chose category */
