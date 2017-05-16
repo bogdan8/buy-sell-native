@@ -19,7 +19,7 @@ import {
   Footer,
   FooterTab
 } from 'native-base';
-import {Modal, View} from 'react-native';
+import {Modal, View, ScrollView} from 'react-native';
 
 import * as drawerActions from '../../actions/drawer';
 import * as productActions from '../../actions/product';
@@ -91,7 +91,7 @@ class Home extends Component {
                 Виберіть категорію
               </Text>
               <Text>
-                <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(!modalVisible)}/>
+                <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(false)}/>
               </Text>
             </View>
             <Button
@@ -105,7 +105,11 @@ class Home extends Component {
               <Text> Всі </Text>
               {choseCategory == '0' ? <Icon name="checkmark"/> : null}
             </Button>
-            {categories}
+            <ScrollView
+              automaticallyAdjustContentInsets={false}
+              scrollEventThrottle={100}>
+              {categories}
+            </ScrollView>
           </View>
         </Modal>
         <Header>

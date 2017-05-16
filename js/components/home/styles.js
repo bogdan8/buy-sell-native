@@ -25,7 +25,8 @@ export default {
     margin: 20,
     backgroundColor: "white",
     borderRadius: 3,
-    padding: 10
+    padding: 10,
+    height: 400
   },
   modalHeader: {
     justifyContent: 'space-around',
