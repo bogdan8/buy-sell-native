@@ -19,7 +19,7 @@ import {
   Footer,
   FooterTab
 } from 'native-base';
-import {Modal, View, ScrollView} from 'react-native';
+import {Modal, View, ScrollView, RefreshControl} from 'react-native';
 
 import * as drawerActions from '../../actions/drawer';
 import * as productActions from '../../actions/product';
@@ -30,7 +30,8 @@ class Home extends Component {
   state = {
     modalVisible: false,
     choseCategory: '',
-    per: 2
+    per: 20,
+    isRefreshing: false,
   };
 
   setModalVisible(visible) {
@@ -40,6 +41,17 @@ class Home extends Component {
   componentWillMount() {
     this.props.actions.allProducts(this.state.per);
   }
+
+  onRefresh() {
+    this.setState({isRefreshing: true});
+    this.props.actions.allProducts;
+    this.props.actions.fetchProductWithCategory(this.state.choseCategory != "" ? this.state.choseCategory : "0", this.state.per)
+    .then(() => 
+      this.setState({
+        isRefreshing: false
+      })
+    );
+  };
 
   render() {
     const {choseCategory, modalVisible, per} = this.state;
@@ -121,24 +133,22 @@ class Home extends Component {
           <Body>
           <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
           </Body>
-          <Right>
-            <Button transparent onPress={() => {
-              this.props.actions.allProducts;
-              this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0", per)
-            }}>
-              <Icon active name="refresh"/>
-            </Button>
-          </Right>
         </Header>
-        <Content>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this.onRefresh.bind(this)}
+              tintColor="#ff0000"
+              title="Loading..."
+              titleColor="#00ff00"
+              colors={['#ff0000', '#00ff00', '#0000ff']}
+              progressBackgroundColor="#ffff00"
+            />
+          }>
           {products}
-          <View style={styles.paginationBlock}>
-            <Icon style={styles.paginationBtn} name="arrow-down" onPress={() => {
-              this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0", per + 2);
-              this.setState({per: per + 2});
-            }}/>
-          </View>
-        </Content>
+        </ScrollView>
+          
         <Footer>
           <FooterTab>
             <Button onPress={() => {
@@ -168,3 +178,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
