@@ -9,7 +9,7 @@ class ProductApi {
       }
     });
 
-    return response = await response.text();
+    return response = await response.json();
   }
 
   /* Get all product with chose category */
@@ -22,7 +22,7 @@ class ProductApi {
       }
     });
 
-    return response = await response.text();
+    return response = await response.json();
   }
 
   /* Create product */
@@ -47,7 +47,7 @@ class ProductApi {
       body: formData
     });
 
-    return response = JSON.parse(await response.text());
+    return response = await response.json();
   }
 }
 

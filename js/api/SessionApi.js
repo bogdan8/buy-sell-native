@@ -12,7 +12,7 @@ class SessionApi {
     });
 
     let res = await response;
-    return response = res.status != 404 ? JSON.parse(await response.text()) : res;
+    return response = res.status != 404 ? await response.json() : res;
   }
 }
 

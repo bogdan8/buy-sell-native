@@ -7,7 +7,7 @@ export function allCategories() {
     return categoryApi.getAllCategories().then(response => {
       dispatch({
         type: types.GET_ALL_CATEGORIES,
-        categories: JSON.parse(response)
+        categories: response
       });
     }).catch(error => {
       throw(error);

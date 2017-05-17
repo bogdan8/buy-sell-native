@@ -9,7 +9,7 @@ class CategoryApi {
       }
     });
 
-    return response = await response.text();
+    return response = await response.json();
   }
 }
 

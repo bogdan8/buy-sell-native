@@ -9,7 +9,7 @@ export function allProducts(per) {
     return productApi.getAllProducts(per).then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
-        products: JSON.parse(response)
+        products: response
       });
     }).catch(error => {
       throw(error);
@@ -23,7 +23,7 @@ export function fetchProductWithCategory(category_id, per) {
     return productApi.getProductWithCategory(category_id, per).then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
-        products: JSON.parse(response)
+        products: response
       });
     }).catch(error => {
       throw(error);

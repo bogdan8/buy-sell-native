@@ -10,7 +10,7 @@ class UserApi {
       }
     });
 
-    return response = JSON.parse(await response.text());
+    return response = await response.text();
   }
 
   /* Create user */
@@ -33,7 +33,7 @@ class UserApi {
       body: formData
     });
 
-    return response = JSON.parse(await response.text());
+    return response = await response.json();
   }
 }
 
