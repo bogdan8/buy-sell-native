@@ -17,9 +17,10 @@ import {
   ListItem,
   Thumbnail,
   Footer,
-  FooterTab
+  FooterTab,
+  Spinner
 } from 'native-base';
-import {Modal, View, ScrollView, RefreshControl} from 'react-native';
+import {Modal, View, ScrollView, RefreshControl, Dimensions} from 'react-native';
 
 import * as drawerActions from '../../actions/drawer';
 import * as productActions from '../../actions/product';
@@ -30,8 +31,9 @@ class Home extends Component {
   state = {
     modalVisible: false,
     choseCategory: '',
-    per: 20,
+    per: 10,
     isRefreshing: false,
+    getData: false
   };
 
   setModalVisible(visible) {
@@ -51,6 +53,25 @@ class Home extends Component {
         isRefreshing: false
       })
     );
+  };
+
+  onScroll(e) {
+    const {choseCategory, per} = this.state;
+    const windowHeight =  Dimensions.get('window').height,
+              height = e.nativeEvent.contentSize.height,
+              offset = e.nativeEvent.contentOffset.y;
+    if(windowHeight + offset >= height){
+      this.setState({
+        getData: true,
+        per: per + 5
+      });
+      this.props.actions.fetchProductWithCategory(choseCategory != "" ? choseCategory : "0", per + 5)
+        .then(() => this.setState({
+          getData: false
+        })
+      );
+
+    }
   };
 
   render() {
@@ -135,6 +156,7 @@ class Home extends Component {
           </Body>
         </Header>
         <ScrollView
+          onScroll={this.onScroll.bind(this)}
           refreshControl={
             <RefreshControl
               refreshing={this.state.isRefreshing}
@@ -147,6 +169,7 @@ class Home extends Component {
             />
           }>
           {products}
+          {this.state.getData ? <Spinner color='blue' /> : undefined}
         </ScrollView>
           
         <Footer>
