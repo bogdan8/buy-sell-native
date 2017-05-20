@@ -81,7 +81,7 @@ class Home extends Component {
       return <ListItem avatar
                        key={index}
                        onPress={() => Actions.cartProduct({product}) }
-                       style={{backgroundColor: active, marginLeft: 0}}>
+                       style={{backgroundColor: active, ...styles.listProduct}}>
         <Left style={{marginLeft: 5}}>
           <Thumbnail square size={80}
                      source={{uri: `http://fshop.ustk.in.ua/system/products/images/${product.id}/medium/${product.image_file_name}`}}/>

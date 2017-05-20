@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'react-native';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {Actions} from 'react-native-router-flux';
 import {
   Container,
   Header,
@@ -17,8 +17,6 @@ import {
   Thumbnail
 } from 'native-base';
 
-import * as drawerActions from '../../actions/drawer';
-
 import styles from './styles';
 
 class CartProduct extends Component {
@@ -29,8 +27,8 @@ class CartProduct extends Component {
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.actions.openDrawer}>
-              <Icon active name="menu"/>
+            <Button transparent onPress={() => Actions.home()}>
+              <Icon active name="arrow-back"/>
             </Button>
           </Left>
           <Body>
@@ -81,10 +79,4 @@ class CartProduct extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(drawerActions, dispatch)
-  };
-}
-
-export default connect(null, mapDispatchToProps)(CartProduct);
+export default connect(null, null)(CartProduct);
