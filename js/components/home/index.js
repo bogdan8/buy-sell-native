@@ -75,7 +75,7 @@ class Home extends Component {
   };
 
   render() {
-    const {choseCategory, modalVisible, per} = this.state;
+    const {choseCategory, modalVisible, per, isRefreshing} = this.state;
     const products = this.props.products.map((product, index) => {
       let active = product.prepaid_products.length > 0 ? '#FDF0DD' : '#FFFFFF';
       return <ListItem avatar
@@ -105,7 +105,7 @@ class Home extends Component {
                 this.setModalVisible(!modalVisible);
                 this.setState({choseCategory: category.id})
               }}>
-        <Text> {category.name} </Text>
+        <Text style={styles.categoryBlcok}> {category.name} </Text>
         {choseCategory == category.id ? <Icon name="checkmark"/> : null}
       </Button>
     });
@@ -159,13 +159,13 @@ class Home extends Component {
           onScroll={this.onScroll.bind(this)}
           refreshControl={
             <RefreshControl
-              refreshing={this.state.isRefreshing}
+              refreshing={isRefreshing}
               onRefresh={this.onRefresh.bind(this)}
               tintColor="#ff0000"
-              title="Loading..."
+              title="Завантаження..."
               titleColor="#00ff00"
               colors={['#ff0000', '#00ff00', '#0000ff']}
-              progressBackgroundColor="#ffff00"
+              progressBackgroundColor="#ffffff"
             />
           }>
           {products}

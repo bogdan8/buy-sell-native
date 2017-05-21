@@ -37,8 +37,8 @@ export default {
     marginBottom: 20
   },
   modalList: {
-    paddingTop: 10,
-    paddingBottom: 10
+    paddingTop: 5,
+    paddingBottom: 5
   },
   closeBtn: {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
@@ -46,5 +46,9 @@ export default {
   listProduct: {
     marginLeft: 0,
     marginBottom: 8
+  },
+  categoryBlcok: {
+    height: 25,
+    paddingTop: 6
   }
 };
