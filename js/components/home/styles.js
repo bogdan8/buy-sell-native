@@ -44,8 +44,7 @@ export default {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
   },
   listProduct: {
-    marginLeft: 0,
-    marginBottom: 8
+    marginLeft: 0
   },
   categoryBlcok: {
     height: 25,
