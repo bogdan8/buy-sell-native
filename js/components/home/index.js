@@ -19,7 +19,9 @@ import {
   Spinner,
   Fab
 } from 'native-base';
-import {Modal, View, ScrollView, RefreshControl, Dimensions} from 'react-native';
+import {Modal, View, ScrollView, RefreshControl, Dimensions, NetInfo} from 'react-native';
+
+import {showToast} from '../../helpers/helpers';
 
 import * as drawerActions from '../../actions/drawer';
 import * as productActions from '../../actions/product';
@@ -32,16 +34,19 @@ class Home extends Component {
     choseCategory: '',
     per: 10,
     isRefreshing: false,
-    getData: false
+    getData: false,
+    display: 'block'
   };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
-  }
+  };
 
   componentWillMount() {
-    this.props.actions.allProducts(this.state.per);
-  }
+    NetInfo.isConnected.fetch().then(isConnected => {
+        isConnected ? this.props.actions.allProducts(this.state.per) :  showToast('Ви непідєднались до інтернету', 'warning');
+    })
+  };
 
   onRefresh() {
     this.setState({isRefreshing: true});
