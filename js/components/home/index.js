@@ -16,9 +16,8 @@ import {
   Left,
   ListItem,
   Thumbnail,
-  Footer,
-  FooterTab,
-  Spinner
+  Spinner,
+  Fab
 } from 'native-base';
 import {Modal, View, ScrollView, RefreshControl, Dimensions} from 'react-native';
 
@@ -171,16 +170,15 @@ class Home extends Component {
           {products}
           {this.state.getData ? <Spinner color='blue' /> : undefined}
         </ScrollView>
-          
-        <Footer>
-          <FooterTab>
-            <Button onPress={() => {
-              this.setModalVisible(!modalVisible)
-            }}>
+          <Fab
+              active={false}
+              direction="down"
+              containerStyle={{ marginLeft: 10 }}
+              style={{ backgroundColor: '#5067FF' }}
+              position="bottomLeft"
+              onPress={() => this.setModalVisible(!modalVisible)}>
               <Icon name="list"/>
-            </Button>
-          </FooterTab>
-        </Footer>
+          </Fab>
       </Container>
     );
   }
