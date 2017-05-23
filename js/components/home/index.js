@@ -179,6 +179,15 @@ class Home extends Component {
               onPress={() => this.setModalVisible(!modalVisible)}>
               <Icon name="list"/>
           </Fab>
+           <Fab
+              active={false}
+              direction="down"
+              containerStyle={{ marginRight: 10 }}
+              style={{ backgroundColor: '#5067FF' }}
+              position="bottomRight"
+              onPress={() => this.props.session.username ? Actions.createProduct() : Actions.signin() }>
+              <Icon name="add"/>
+          </Fab>
       </Container>
     );
   }
