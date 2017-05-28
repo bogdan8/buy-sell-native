@@ -35,7 +35,8 @@ class Home extends Component {
     per: 10,
     isRefreshing: false,
     getData: false,
-    isConnected: true
+    isConnected: true,
+    showFab: true
   };
 
   setModalVisible(visible) {
@@ -72,7 +73,8 @@ class Home extends Component {
     const {choseCategory, per} = this.state;
     const windowHeight =  Dimensions.get('window').height,
               height = e.nativeEvent.contentSize.height,
-              offset = e.nativeEvent.contentOffset.y;
+              offset = e.nativeEvent.contentOffset.y,
+              defautlOffset = 0;
     if(windowHeight + offset >= height){
       this.setState({
         getData: true,
@@ -83,12 +85,12 @@ class Home extends Component {
           getData: false
         })
       );
-
     }
+    offset > defautlOffset ? this.setState({showFab: false}) : this.setState({showFab: true});
   };
 
   render() {
-    const {choseCategory, modalVisible, per, isRefreshing} = this.state;
+    const {choseCategory, modalVisible, per, isRefreshing, showFab} = this.state;
     const products = this.props.products.map((product, index) => {
       let active = product.prepaid_products.length > 0 ? '#FDF0DD' : '#FFFFFF';
       return <ListItem avatar
@@ -122,6 +124,30 @@ class Home extends Component {
         {choseCategory == category.id ? <Icon name="checkmark"/> : null}
       </Button>
     });
+    const fab = () => {
+      if(showFab){
+        return <View>
+            <Fab
+                active={false}
+                direction="down"
+                containerStyle={{ marginLeft: 10 }}
+                style={{ backgroundColor: '#5067FF' }}
+                position="bottomLeft"
+                onPress={() => this.setModalVisible(!modalVisible)}>
+                <Icon name="list"/>
+            </Fab>
+             <Fab
+                active={false}
+                direction="down"
+                containerStyle={{ marginRight: 10 }}
+                style={{ backgroundColor: '#5067FF' }}
+                position="bottomRight"
+                onPress={() => this.props.session.username ? Actions.createProduct() : Actions.signin() }>
+                <Icon name="add"/>
+            </Fab>
+          </View>
+      }
+    };
 
     const container = <Container style={styles.container}>
         <Modal
@@ -184,24 +210,7 @@ class Home extends Component {
           {products}
           {this.state.getData ? <Spinner color='blue' /> : undefined}
         </ScrollView>
-          <Fab
-              active={false}
-              direction="down"
-              containerStyle={{ marginLeft: 10 }}
-              style={{ backgroundColor: '#5067FF' }}
-              position="bottomLeft"
-              onPress={() => this.setModalVisible(!modalVisible)}>
-              <Icon name="list"/>
-          </Fab>
-           <Fab
-              active={false}
-              direction="down"
-              containerStyle={{ marginRight: 10 }}
-              style={{ backgroundColor: '#5067FF' }}
-              position="bottomRight"
-              onPress={() => this.props.session.username ? Actions.createProduct() : Actions.signin() }>
-              <Icon name="add"/>
-          </Fab>
+        {fab()}
       </Container>;
 
     const containerFailedConnect = <Container>
