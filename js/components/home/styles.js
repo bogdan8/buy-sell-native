@@ -49,5 +49,21 @@ export default {
   categoryBlcok: {
     height: 25,
     paddingTop: 6
+  },
+  containerFailedConnect: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  containerFailedConnectText: {
+    fontSize: 20
+  },
+  containerFailedConnectButton: {
+    width: deviceWidth,
+    justifyContent: 'center',
+  },
+  containerFailedConnectIcon: {
+    fontSize: 50
   }
 };

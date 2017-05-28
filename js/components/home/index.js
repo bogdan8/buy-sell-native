@@ -35,7 +35,7 @@ class Home extends Component {
     per: 10,
     isRefreshing: false,
     getData: false,
-    display: 'block'
+    isConnected: true
   };
 
   setModalVisible(visible) {
@@ -43,10 +43,19 @@ class Home extends Component {
   };
 
   componentWillMount() {
-    NetInfo.isConnected.fetch().then(isConnected => {
-        isConnected ? this.props.actions.allProducts(this.state.per) :  showToast('Ви непідєднались до інтернету', 'warning');
-    })
+    this.checkIfConnected();
   };
+
+  checkIfConnected(){
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if(isConnected){
+        this.props.actions.allProducts(this.state.per);
+        this.setState({isConnected});
+      } else {
+        this.setState({isConnected});
+      }
+    })
+  }
 
   onRefresh() {
     this.setState({isRefreshing: true});
@@ -113,8 +122,8 @@ class Home extends Component {
         {choseCategory == category.id ? <Icon name="checkmark"/> : null}
       </Button>
     });
-    return (
-      <Container style={styles.container}>
+
+    const container = <Container style={styles.container}>
         <Modal
           animationType={"fade"}
           transparent={true}
@@ -193,8 +202,23 @@ class Home extends Component {
               onPress={() => this.props.session.username ? Actions.createProduct() : Actions.signin() }>
               <Icon name="add"/>
           </Fab>
-      </Container>
-    );
+      </Container>;
+
+    const containerFailedConnect = <Container>
+        <View style={styles.containerFailedConnect}>
+          <Text style={styles.containerFailedConnectText}>
+            У вас немає доступу до інтернету(
+          </Text>
+          <Button
+            transparent
+            style={styles.containerFailedConnectButton}
+            onPress={() => this.checkIfConnected()}>
+            <Icon style={styles.containerFailedConnectIcon} name="refresh"/>
+          </Button>
+        </View>
+      </Container>;
+
+    return this.state.isConnected ? container : containerFailedConnect;
   }
 }
 
