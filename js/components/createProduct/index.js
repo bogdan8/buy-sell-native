@@ -168,7 +168,7 @@ class CreateProduct extends Component {
               multiline={true}
               onChangeText={(val) => this.setState({text: val})}
             />
-            { text != "" ? <Icon name={text.length < 10 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { text != "" && <Icon name={text.length < 10 ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           <Item floatingLabel
                 error={price.length < 1 && price != "" }
@@ -180,7 +180,7 @@ class CreateProduct extends Component {
               maxLength={5}
               onChangeText={(val) => this.setState({price: val})}
             />
-            { price != "" ? <Icon name={price.length < 1 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { price != "" && <Icon name={price.length < 1 ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           {this.isLoading()}
           </Body>

@@ -90,7 +90,7 @@ class SignIn extends Component {
                   style={styles.input}>
               <Label>Email *</Label>
               <Input onChangeText={(text) => this.setState({email: text})}/>
-              { email != "" ? <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'}/> : "" }
+              { email != "" && <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'}/> }
             </Item>
             <Item floatingLabel
                   error={ password.length < 6 && password != "" }
@@ -101,7 +101,7 @@ class SignIn extends Component {
                 onChangeText={(text) => this.setState({password: text})}
                 secureTextEntry
               />
-              { password != "" ? <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+              { password != "" && <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'}/> }
             </Item>
             {this.isLoading()}
           </View>

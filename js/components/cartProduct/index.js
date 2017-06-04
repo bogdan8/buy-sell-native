@@ -27,7 +27,7 @@ class CartProduct extends Component {
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={() => Actions.home()}>
+            <Button transparent onPress={() => Actions.pop()}>
               <Icon active name="arrow-back"/>
             </Button>
           </Left>

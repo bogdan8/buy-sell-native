@@ -156,7 +156,7 @@ class Registration extends Component {
               returnKeyType="next"
               onChangeText={(val) => this.setState({username: val})}
             />
-            { username != "" ? <Icon name={username.length < 3 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { username != "" && <Icon name={username.length < 3 ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           <Item floatingLabel
                 error={!re.test(email) && email != "" }
@@ -168,7 +168,7 @@ class Registration extends Component {
               keyboardType='email-address'
               onChangeText={(val) => this.setState({email: val})}
             />
-            { email != "" ? <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { email != "" && <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           <Item floatingLabel
                 error={telephone.length < 10 && telephone != "" }
@@ -181,7 +181,7 @@ class Registration extends Component {
               maxLength={10}
               onChangeText={(val) => this.setState({telephone: val})}
             />
-            { telephone != "" ? <Icon name={telephone.length < 10 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { telephone != "" && <Icon name={telephone.length < 10 ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           <Item floatingLabel
                 style={styles.input}>
@@ -202,7 +202,7 @@ class Registration extends Component {
               onChangeText={(val) => this.setState({password: val})}
               secureTextEntry
             />
-            { password != "" ? <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { password != "" && <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           <Item floatingLabel
                 error={repeat_password != password && repeat_password != "" }
@@ -214,8 +214,8 @@ class Registration extends Component {
               onChangeText={(val) => this.setState({repeat_password: val})}
               secureTextEntry
             />
-            { repeat_password != "" ?
-              <Icon name={repeat_password != password ? 'close-circle' : 'checkmark-circle'}/> : "" }
+            { repeat_password != "" &&
+              <Icon name={repeat_password != password ? 'close-circle' : 'checkmark-circle'}/> }
           </Item>
           {this.isLoading()}
           </Body>

@@ -65,5 +65,14 @@ export default {
   },
   containerFailedConnectIcon: {
     fontSize: 50
+  },
+  checkInitialDateBlock: {
+    width: deviceWidth,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  checkInitialDateText: {
+    color: '#b5b5b5',
+    fontSize: 30
   }
 };

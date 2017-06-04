@@ -30,13 +30,14 @@ import styles from './styles';
 
 class Home extends Component {
   state = {
-    modalVisible: false,
-    choseCategory: '',
-    per: 10,
+    modalVisible: false, // check if modal visible
+    choseCategory: '', // chose category
+    per: 10, // count data on page
     isRefreshing: false,
-    getData: false,
-    isConnected: true,
-    showFab: true
+    getData: false, // check if you want to add new data
+    isConnected: true, // check the network connection
+    showFab: true, // check if show Fab
+    checkInitialDate: true // at the start of the program to check whether the initial data received from site
   };
 
   setModalVisible(visible) {
@@ -50,7 +51,7 @@ class Home extends Component {
   checkIfConnected(){
     NetInfo.isConnected.fetch().then(isConnected => {
       if(isConnected){
-        this.props.actions.allProducts(this.state.per);
+        this.props.actions.allProducts(this.state.per).then(this.setState({checkInitialDate: false}));
         this.setState({isConnected});
       } else {
         this.setState({isConnected});
@@ -121,7 +122,7 @@ class Home extends Component {
                 this.setState({choseCategory: category.id})
               }}>
         <Text style={styles.categoryBlcok}> {category.name} </Text>
-        {choseCategory == category.id ? <Icon name="checkmark"/> : null}
+        {choseCategory == category.id && <Icon name="checkmark"/>}
       </Button>
     });
     const fab = () => {
@@ -149,69 +150,82 @@ class Home extends Component {
       }
     };
 
-    const container = <Container style={styles.container}>
-        <Modal
-          animationType={"fade"}
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => this.setModalVisible(!modalVisible)}>
-          <View style={styles.modal}>
-            <View style={styles.modalHeader}>
-              <Text>
-              </Text>
-              <Text>
-                Виберіть категорію
-              </Text>
-              <Text>
-                <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(false)}/>
-              </Text>
-            </View>
-            <Button
-              transparent
-              style={styles.modalList}
-              onPress={() => {
-                this.props.actions.fetchProductWithCategory('0', per);
-                this.setModalVisible(!modalVisible);
-                this.setState({choseCategory: '0'})
-                }}>
-              <Text> Всі </Text>
-              {choseCategory == '0' ? <Icon name="checkmark"/> : null}
-            </Button>
+    const container = () => {
+      if(this.state.checkInitialDate){
+        return  <Container style={styles.checkInitialDateBlock}>
+                  <Spinner color='blue' />
+                  <View>
+                    <Text style={styles.checkInitialDateText}>
+                      Почекайте
+                    </Text>
+                  </View>
+            </Container>
+      }else{
+      return <Container style={styles.container}>
+            <Modal
+              animationType={"fade"}
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => this.setModalVisible(!modalVisible)}>
+              <View style={styles.modal}>
+                <View style={styles.modalHeader}>
+                  <Text>
+                  </Text>
+                  <Text>
+                    Виберіть категорію
+                  </Text>
+                  <Text>
+                    <Icon name="close" style={styles.closeBtn} onPress={() => this.setModalVisible(false)}/>
+                  </Text>
+                </View>
+                <Button
+                  transparent
+                  style={styles.modalList}
+                  onPress={() => {
+                    this.props.actions.fetchProductWithCategory('0', per);
+                    this.setModalVisible(!modalVisible);
+                    this.setState({choseCategory: '0'})
+                    }}>
+                  <Text> Всі </Text>
+                  {choseCategory == '0' && <Icon name="checkmark"/>}
+                </Button>
+                <ScrollView
+                  automaticallyAdjustContentInsets={false}
+                  scrollEventThrottle={100}>
+                  {categories}
+                </ScrollView>
+              </View>
+            </Modal>
+            <Header>
+              <Left>
+                <Button transparent onPress={this.props.actions.openDrawer}>
+                  <Icon active name="menu"/>
+                </Button>
+              </Left>
+              <Body>
+              <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
+              </Body>
+            </Header>
             <ScrollView
-              automaticallyAdjustContentInsets={false}
-              scrollEventThrottle={100}>
-              {categories}
+              onScroll={this.onScroll.bind(this)}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isRefreshing}
+                  onRefresh={this.onRefresh.bind(this)}
+                  tintColor="#ff0000"
+                  title="Завантаження..."
+                  titleColor="#00ff00"
+                  colors={['#ff0000', '#00ff00', '#0000ff']}
+                  progressBackgroundColor="#ffffff"
+                />
+              }>
+              {products}
+              {this.state.getData && <Spinner color='blue' />}
             </ScrollView>
-          </View>
-        </Modal>
-        <Header>
-          <Left>
-            <Button transparent onPress={this.props.actions.openDrawer}>
-              <Icon active name="menu"/>
-            </Button>
-          </Left>
-          <Body>
-          <Title>{(this.props.session.username) ? this.props.session.username : 'Головна'}</Title>
-          </Body>
-        </Header>
-        <ScrollView
-          onScroll={this.onScroll.bind(this)}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={this.onRefresh.bind(this)}
-              tintColor="#ff0000"
-              title="Завантаження..."
-              titleColor="#00ff00"
-              colors={['#ff0000', '#00ff00', '#0000ff']}
-              progressBackgroundColor="#ffffff"
-            />
-          }>
-          {products}
-          {this.state.getData ? <Spinner color='blue' /> : undefined}
-        </ScrollView>
-        {fab()}
-      </Container>;
+            {fab()}
+      </Container>
+      }
+    };
 
     const containerFailedConnect = <Container>
         <View style={styles.containerFailedConnect}>
@@ -227,7 +241,7 @@ class Home extends Component {
         </View>
       </Container>;
 
-    return this.state.isConnected ? container : containerFailedConnect;
+    return this.state.isConnected ? container() : containerFailedConnect;
   }
 }
 
