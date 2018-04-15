@@ -1,4 +1,4 @@
-import {OPEN_DRAWER, CLOSE_DRAWER} from '../actions/types';
+import * as types from '../actions/types';
 
 const initialState = {
   drawerState: 'closed',
@@ -7,12 +7,12 @@ const initialState = {
 
 export default function drawer(state = initialState, action) {
   switch (action.type) {
-    case OPEN_DRAWER:
+    case types.OPEN_DRAWER:
       return {
         ...state,
         drawerState: 'opened',
       };
-    case CLOSE_DRAWER:
+    case types.CLOSE_DRAWER:
       return {
         ...state,
         drawerState: 'closed',

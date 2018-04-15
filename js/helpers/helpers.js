@@ -5,7 +5,7 @@ export function showToast(message, level) {
     text: message,
     position: 'bottom',
     buttonText: 'X',
-	type: level,
-	duration: 3000
+    type: level,
+    duration: 3000
   });
 }

@@ -20,7 +20,7 @@
 
 @end
 
-@implementation FShoptTests
+@implementation FShoptTests : NSObject
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

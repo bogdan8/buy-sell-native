@@ -1,5 +1,4 @@
-import { Platform } from 'react-native';
-import _ from 'lodash';
+import {Platform} from 'react-native';
 
 import variable from './../variables/platform';
 
@@ -8,7 +7,6 @@ export default (variables = variable) => {
     fontSize: variables.iconFontSize,
     color: '#000',
   };
-
 
   return iconTheme;
 };

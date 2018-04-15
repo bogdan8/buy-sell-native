@@ -4,12 +4,12 @@ import productApi from '../api/ProductApi';
 import {showToast} from '../helpers/helpers';
 
 /* Get all products */
-export function allProducts() {
+export function allProducts(per) {
   return function (dispatch) {
-    return productApi.getAllProducts().then(response => {
+    return productApi.getAllProducts(per).then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
-        products: JSON.parse(response)
+        products: response
       });
     }).catch(error => {
       throw(error);
@@ -18,12 +18,12 @@ export function allProducts() {
 }
 
 /* Get all product with chose category */
-export function fetchProductWithCategory(category_id) {
+export function fetchProductWithCategory(category_id, per) {
   return function (dispatch) {
-    return productApi.getProductWithCategory(category_id).then(response => {
+    return productApi.getProductWithCategory(category_id, per).then(response => {
       dispatch({
         type: types.GET_ALL_PRODUCTS,
-        products: JSON.parse(response)
+        products: response
       });
     }).catch(error => {
       throw(error);
@@ -35,10 +35,10 @@ export function fetchProductWithCategory(category_id) {
 export function addProduct(paramsProduct, jwt) {
   return (dispatch) => {
     return productApi.createProduct(paramsProduct, jwt).then(response => {
-      if(response.message.type == 'success'){
+      if (response.message.type == 'success') {
         Actions.home();
       }
-      showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type );
+      showToast(response.message.text, response.message.type == 'error' ? 'danger' : response.message.type);
     }).catch(error => {
       throw(error);
     });

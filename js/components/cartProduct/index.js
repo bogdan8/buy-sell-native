@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'react-native';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {Actions} from 'react-native-router-flux';
 import {
   Container,
   Header,
@@ -11,30 +11,28 @@ import {
   Button,
   Icon,
   Body,
-  Right,
   Card,
   CardItem,
   Left,
   Thumbnail
 } from 'native-base';
 
-import * as drawerActions from '../../actions/drawer';
-
 import styles from './styles';
 
 class CartProduct extends Component {
   render() {
-  	const {product} = this.props;
+    const {product} = this.props;
+
     return (
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.actions.openDrawer}>
-              <Icon active name="menu"/>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon active name="arrow-back"/>
             </Button>
           </Left>
           <Body>
-            <Title>{product.user.username}</Title>
+          <Title>{product.user.username}</Title>
           </Body>
         </Header>
         <Content>
@@ -70,7 +68,7 @@ class CartProduct extends Component {
               </Button>
               <Button transparent textStyle={{color: '#87838B'}}>
                 <Icon name="clock"/>
-                <Text> {product.updated_at.substring(0,10)}</Text>
+                <Text> {product.updated_at.substring(0, 10)}</Text>
               </Button>
               </Body>
             </CardItem>
@@ -81,10 +79,4 @@ class CartProduct extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(drawerActions, dispatch)
-  };
-}
-
-export default connect(null, mapDispatchToProps)(CartProduct);
+export default connect(null, null)(CartProduct);

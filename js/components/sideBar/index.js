@@ -16,39 +16,43 @@ class SideBar extends Component {
     if (!this.props.session.jwt) {
       return <View>
         <ListItem button onPress={() => { Actions.signin(); this.props.actions.closeDrawer(); }}>
-          <Text>Вхід</Text>
+          <Text> Вхід </Text>
         </ListItem>
         <ListItem button onPress={() => { Actions.registration(); this.props.actions.closeDrawer(); }}>
-          <Text>Реєстрація</Text>
+          <Text> Реєстрація </Text>
         </ListItem>
       </View>
     } else {
       return <View>
         <ListItem button onPress={() => { Actions.createProduct(); this.props.actions.closeDrawer(); }}>
-          <Text>Додати оголошення</Text>
+          <Text> Додати оголошення </Text>
         </ListItem>
         <ListItem button onPress={() => { this.props.actions.signOutUser(); this.props.actions.closeDrawer(); }}>
-          <Text>Вихід</Text>
+          <Text> Вихід </Text>
         </ListItem>
       </View>
     }
   }
 
   image() {
-    if(this.props.session.avatar){
+    if (this.props.session.avatar) {
       return <Image
-              style={{width: 110, height: 110, borderRadius: 100}}
-              source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}`}}
-            />
-    }else{
-      return <View style={styles.munuTitleBlock}><Text style={styles.menuTitle}> FShop </Text></View>
+        style={{width: 110, height: 110, borderRadius: 100}}
+        source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/original/${this.props.session.avatar}`}}
+      />
+    } else {
+      return <View style={styles.munuTitleBlock}>
+        <Text style={styles.menuTitle}> FShop </Text>
+      </View>
     }
   }
 
   render() {
-    const avatar = this.props.session.avatar ? 
-                  `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}` :
-                  'http://www.whitetablegallery.org/src/share/default.jpg';
+    const {session} = this.props;
+    const avatar = session.avatar ?
+      `http://fshop.ustk.in.ua/system/users/avatars/${session.id}/original/${session.avatar}` :
+      'http://www.whitetablegallery.org/src/share/default.jpg';
+
     return (
       <Content style={styles.sidebar}>
         <Image
@@ -61,7 +65,7 @@ class SideBar extends Component {
             </View>
             <View style={styles.menuDescriptionBlock}>
               <Text style={styles.menuDescription}>
-                Привіт користувач!
+                Привіт {session.username ? session.username : 'користувач' }!
               </Text>
             </View>
           </View>
@@ -69,9 +73,9 @@ class SideBar extends Component {
         <View style={styles.menuBlock}>
           <ListItem button onPress={() => { Actions.home(); this.props.actions.closeDrawer(); }}>
             <Text>Головна</Text>
-          </ListItem> 
+          </ListItem>
           {this.menu()}
-        </View>  
+        </View>
       </Content>
     );
   }

@@ -12,12 +12,12 @@ import {
   Text,
   Header,
   Body,
-  Right,
   Left,
   Title,
   Label,
   Spinner
 } from 'native-base';
+
 import {showToast} from '../../helpers/helpers';
 
 import * as drawerActions from '../../actions/drawer';
@@ -27,24 +27,22 @@ import styles from './styles';
 
 class SignIn extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      email: "",
-      password: "",
-      loading: false,
-    }
-  }
+  state = {
+    email: "",
+    password: "",
+    loading: false,
+  };
 
   onLoginPressed() {
-    const re =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const {email, password} = this.state;
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     if (!re.test(this.state.email)) {
       showToast("Невірний формат 'email'", 'warning');
     } else {
       let credentials = {
-        email: this.state.email,
-        password: this.state.password
+        email,
+        password
       };
       this.setState({
         loading: true
@@ -68,8 +66,9 @@ class SignIn extends Component {
   }
 
   render() {
-    const { email, password } = this.state;
-    const re =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const {email, password} = this.state;
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     return (
       <Container style={styles.container}>
         <Header>
@@ -79,30 +78,30 @@ class SignIn extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Вхід</Title>
+          <Title>Вхід</Title>
           </Body>
         </Header>
 
         <Content>
           <View style={styles.bg}>
             <Item floatingLabel
-                  error={!re.test(email) && email != "" ? true : false }
-                  success={!re.test(email) ? false : true }
+                  error={ !re.test(email) && email != "" }
+                  success={ re.test(email) }
                   style={styles.input}>
               <Label>Email *</Label>
               <Input onChangeText={(text) => this.setState({email: text})}/>
-              { email != "" ? <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'} /> : "" }
+              { email != "" && <Icon name={!re.test(email) ? 'close-circle' : 'checkmark-circle'}/> }
             </Item>
             <Item floatingLabel
-                  error={password.length < 6 && password != "" ? true : false }
-                  success={password.length < 6 ? false : true }
+                  error={ password.length < 6 && password != "" }
+                  success={ password.length>=6 }
                   style={styles.input}>
               <Label>Пароль *</Label>
               <Input
                 onChangeText={(text) => this.setState({password: text})}
                 secureTextEntry
               />
-              { password != "" ? <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'} /> : "" }
+              { password != "" && <Icon name={password.length < 6 ? 'close-circle' : 'checkmark-circle'}/> }
             </Item>
             {this.isLoading()}
           </View>

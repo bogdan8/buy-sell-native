@@ -8,9 +8,9 @@ class CategoryApi {
         'Content-Type': 'application/json'
       }
     });
-    
-    return response = await response.text()
+
+    return response = await response.json();
   }
 }
 
-export default CategoryApi
+export default CategoryApi;

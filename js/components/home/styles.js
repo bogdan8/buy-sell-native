@@ -22,10 +22,11 @@ export default {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
   },
   modal: {
-    margin: 20, 
+    margin: 20,
     backgroundColor: "white",
     borderRadius: 3,
-    padding: 10
+    padding: 10,
+    height: 400
   },
   modalHeader: {
     justifyContent: 'space-around',
@@ -36,10 +37,42 @@ export default {
     marginBottom: 20
   },
   modalList: {
-    paddingTop: 10,
-    paddingBottom: 10
+    paddingTop: 5,
+    paddingBottom: 5
   },
   closeBtn: {
     color: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7'
+  },
+  listProduct: {
+    marginLeft: 0
+  },
+  categoryBlcok: {
+    height: 25,
+    paddingTop: 6
+  },
+  containerFailedConnect: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  containerFailedConnectText: {
+    fontSize: 20
+  },
+  containerFailedConnectButton: {
+    width: deviceWidth,
+    justifyContent: 'center',
+  },
+  containerFailedConnectIcon: {
+    fontSize: 50
+  },
+  checkInitialDateBlock: {
+    width: deviceWidth,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  checkInitialDateText: {
+    color: '#b5b5b5',
+    fontSize: 30
   }
 };
