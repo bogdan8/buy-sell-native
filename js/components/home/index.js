@@ -100,7 +100,7 @@ class Home extends Component {
                        style={{backgroundColor: active, ...styles.listProduct}}>
         <Left style={{marginLeft: 5}}>
           <Thumbnail square size={80}
-                     source={{uri: `http://fshop.ustk.in.ua/system/products/images/${product.id}/medium/${product.image_file_name}`}}/>
+                     source={{uri: `http://ec2-18-217-57-117.us-east-2.compute.amazonaws.com/system/products/images/${product.id}/medium/${product.image_file_name}`}}/>
         </Left>
         <Body>
           <Text> {product.user.username ? product.user.username : 'Користувач'} </Text>
