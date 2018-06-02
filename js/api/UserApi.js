@@ -1,7 +1,7 @@
 class UserApi {
   /* Get all users */
   static async getAllUsers(jwt) {
-    let response = await fetch('http://fshop.ustk.in.ua/users.json', {
+    let response = await fetch('http://18.191.64.11/users.json', {
       method: 'GET',
       headers: {
         'AUTHORIZATION': `Bearer ${jwt}`,
@@ -28,7 +28,7 @@ class UserApi {
         name: paramsUser.avatar.fileName,
       });
     }
-    let response = await fetch('http://fshop.ustk.in.ua/users.json', {
+    let response = await fetch('http://18.191.64.11/users.json', {
       method: 'POST',
       body: formData
     });
