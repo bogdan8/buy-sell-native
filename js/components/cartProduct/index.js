@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'react-native';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {Actions} from 'react-native-router-flux';
 import {
   Container,
   Header,
@@ -17,8 +17,6 @@ import {
   Thumbnail
 } from 'native-base';
 
-import * as drawerActions from '../../actions/drawer';
-
 import styles from './styles';
 
 class CartProduct extends Component {
@@ -29,8 +27,8 @@ class CartProduct extends Component {
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button transparent onPress={this.props.actions.openDrawer}>
-              <Icon active name="menu"/>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon active name="arrow-back"/>
             </Button>
           </Left>
           <Body>
@@ -42,7 +40,7 @@ class CartProduct extends Component {
             <CardItem>
               <Left>
                 <Thumbnail
-                  source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${product.user.id}/small/${product.user.avatar_file_name}`}}
+                  source={{uri: `http://18.191.64.11/system/users/avatars/${product.user.id}/small/${product.user.avatar_file_name}`}}
                 />
                 <Body>
                 <Text>{product.user.username ? product.user.username : 'Користувач'}</Text>
@@ -55,7 +53,7 @@ class CartProduct extends Component {
               <Body>
               <Image
                 style={styles.productImage}
-                source={{uri: `http://fshop.ustk.in.ua/system/products/images/${product.id}/medium/${product.image_file_name}`}}
+                source={{uri: `http://18.191.64.11/system/products/images/${product.id}/medium/${product.image_file_name}`}}
               />
               <Text>
                 {product.text}
@@ -81,10 +79,4 @@ class CartProduct extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(drawerActions, dispatch)
-  };
-}
-
-export default connect(null, mapDispatchToProps)(CartProduct);
+export default connect(null, null)(CartProduct);

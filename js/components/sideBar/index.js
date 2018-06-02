@@ -38,11 +38,11 @@ class SideBar extends Component {
     if (this.props.session.avatar) {
       return <Image
         style={{width: 110, height: 110, borderRadius: 100}}
-        source={{uri: `http://fshop.ustk.in.ua/system/users/avatars/${this.props.session.id}/small/${this.props.session.avatar}`}}
+        source={{uri: `http://18.191.64.11/system/users/avatars/${this.props.session.id}/original/${this.props.session.avatar}`}}
       />
     } else {
       return <View style={styles.munuTitleBlock}>
-        <Text style={styles.menuTitle}> FShop </Text>
+        <Text style={styles.menuTitle}> BuySell </Text>
       </View>
     }
   }
@@ -50,7 +50,7 @@ class SideBar extends Component {
   render() {
     const {session} = this.props;
     const avatar = session.avatar ?
-      `http://fshop.ustk.in.ua/system/users/avatars/${session.id}/small/${session.avatar}` :
+      `http://18.191.64.11/system/users/avatars/${session.id}/original/${session.avatar}` :
       'http://www.whitetablegallery.org/src/share/default.jpg';
 
     return (
@@ -65,7 +65,7 @@ class SideBar extends Component {
             </View>
             <View style={styles.menuDescriptionBlock}>
               <Text style={styles.menuDescription}>
-                Привіт користувач!
+                Привіт {session.username ? session.username : 'користувач' }!
               </Text>
             </View>
           </View>

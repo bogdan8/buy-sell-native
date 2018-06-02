@@ -2,4 +2,4 @@
 import { AppRegistry } from 'react-native';
 import setup from './js/setup';
 
-AppRegistry.registerComponent('FShop', setup);
+AppRegistry.registerComponent('BuySell', setup);

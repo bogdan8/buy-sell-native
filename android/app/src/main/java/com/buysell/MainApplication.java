@@ -1,4 +1,4 @@
-package com.fshop;
+package com.buysell;
 
 import android.app.Application;
 
@@ -16,13 +16,10 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-
     @Override
     protected String getJSBundleFile() {
       return CodePush.getJSBundleFile();
     }
-
-    @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
     }
@@ -31,8 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImagePickerPackage(),
-            new CodePush(null, getApplicationContext(), BuildConfig.DEBUG)
+          new ImagePickerPackage(),
+          new CodePush(null, getApplicationContext(), BuildConfig.DEBUG)
       );
     }
   };

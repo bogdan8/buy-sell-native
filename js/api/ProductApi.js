@@ -1,7 +1,7 @@
 class ProductApi {
   /* Get all products */
-  static async getAllProducts() {
-    let response = await fetch('http://fshop.ustk.in.ua/products/1.json?per=100', {
+  static async getAllProducts(per) {
+    let response = await fetch(`http://18.191.64.11/products/1.json?per=${per}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -9,12 +9,12 @@ class ProductApi {
       }
     });
 
-    return response = await response.text();
+    return response = await response.json();
   }
 
   /* Get all product with chose category */
-  static async getProductWithCategory(category_id) {
-    let response = await fetch(`http://fshop.ustk.in.ua/products/1.json?category_id=${category_id}`, {
+  static async getProductWithCategory(category_id, per) {
+    let response = await fetch(`http://18.191.64.11/products/1.json?category_id=${category_id}&per=${per}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -22,7 +22,7 @@ class ProductApi {
       }
     });
 
-    return response = await response.text();
+    return response = await response.json();
   }
 
   /* Create product */
@@ -39,7 +39,7 @@ class ProductApi {
         name: paramsProduct.image.fileName,
       });
     }
-    let response = await fetch('http://fshop.ustk.in.ua/products.json', {
+    let response = await fetch('http://18.191.64.11/products.json', {
       method: 'POST',
       headers: {
         'AUTHORIZATION': `Bearer ${jwt}`,
@@ -47,7 +47,7 @@ class ProductApi {
       body: formData
     });
 
-    return response = JSON.parse(await response.text());
+    return response = await response.json();
   }
 }
 
